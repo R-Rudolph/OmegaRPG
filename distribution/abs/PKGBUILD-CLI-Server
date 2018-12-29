@@ -1,0 +1,58 @@
+# This is an example PKGBUILD file. Use this as a start to creating your own,
+# and remove these comments. For more information, see 'man PKGBUILD'.
+# NOTE: Please fill out the license field for your package! If it is unknown,
+# then please put 'unknown'.
+
+# Maintainer: Your Name <youremail@domain.com>
+pkgname=omegarpg-server-local
+pkgver=a423763
+pkgrel=1
+epoch=
+pkgdesc=""
+arch=('x86_64' 'i686' 'armv7h')
+url=""
+license=('GPL')
+groups=()
+depends=('qt5-base')
+makedepends=('git')
+provides=('omegarpg-server')
+conflicts=('omegarpg-local')
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("git+https://github.com/R-Rudolph/OmegaRPG")
+noextract=()
+sha256sums=('SKIP')
+validpgpkeys=()
+
+pkgver() {
+	cd $srcdir/OmegaRPG
+	set -o pipefail
+	git rev-parse --short HEAD
+}
+
+prepare() {
+	cd $srcdir/OmegaRPG
+	git submodule update --init --recursive
+}
+
+build() {
+	cd $srcdir
+	mkdir build
+	cd build
+	qmake ../OmegaRPG/OmegaRPG-Server-CLI
+	make
+}
+
+package() {
+	mkdir -p $pkgdir/usr/bin
+	mv $srcdir/build/OmegaRPG-Server-CLI $pkgdir/usr/bin
+	mkdir -p $pkgdir/usr/share/OmegaRPG
+	cp $srcdir/OmegaRPG/icons/omegarpg.png $pkgdir/usr/share/OmegaRPG/omegarpg.png
+	mkdir -p $pkgdir/usr/share/applications
+	cp $srcdir/OmegaRPG/distribution/OmegaRPG.desktop $pkgdir/usr/share/applications/OmegaRPG.desktop
+}
+

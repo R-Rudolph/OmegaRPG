@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=OmegaRPG
+Comment=Run the virtual tabletop application OmegaRPG
+Keywords=omega;rpg;tabletop;board;
+TryExec=OmegaRPG
+Exec=OmegaRPG
+StartupNotify=true
+Terminal=false
+Type=Application
+Icon=/usr/share/OmegaRPG/omegarpg.png
+Categories=Games;Internet;
+
+Name[en_GB]=OmegaRPG
