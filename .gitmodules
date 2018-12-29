@@ -1,0 +1,9 @@
+[submodule "3rdParty/QImgurUploader"]
+	path = 3rdParty/QImgurUploader
+	url = https://github.com/R-Rudolph/QImgurUploader
+[submodule "3rdParty/Qt-TabFormWidget"]
+	path = 3rdParty/Qt-TabFormWidget
+	url = https://github.com/R-Rudolph/Qt-TabFormWidget
+[submodule "3rdParty/quazip"]
+	path = 3rdParty/quazip
+	url = https://github.com/stachenov/quazip
