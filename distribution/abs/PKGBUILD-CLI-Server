@@ -4,7 +4,7 @@
 # then please put 'unknown'.
 
 # Maintainer: Your Name <youremail@domain.com>
-pkgname=omegarpg-server-local
+pkgname=omegarpg-cli-server
 pkgver=a423763
 pkgrel=1
 epoch=
