@@ -9,13 +9,14 @@ class GlobalGUI
 {
   static QIcon iconByName(const QString& name);
   static QIcon standardIcon(QStyle::StandardPixmap pixmap);
+  static QIcon customIcon(const QString& name);
   static QStyle* style;
 public:
   static void initIcons(QApplication& application);
   static QIcon getOmegaRPGIcon();
   //x11 icon theme functions
-  static QIcon freedesktopActive();
-  static QIcon freedesktopAdd();
+  static QIcon iconActive();
+  static QIcon iconAdd();
   static QIcon freedesktopNewFolder();
   static QIcon freedesktopRemove();
   static QIcon freedesktopCopy();

@@ -363,7 +363,7 @@ void MiniatureMenuWidget::contextMenu(QPoint point)
   QTreeWidgetItem* item = tree->itemAt(point);
   QMenu menu;
   contextMenuItem = item;
-  menu.addAction(GlobalGUI::freedesktopAdd(),"Add Miniature",this,&MiniatureMenuWidget::addMiniAction);
+  menu.addAction(GlobalGUI::iconAdd(),"Add Miniature",this,&MiniatureMenuWidget::addMiniAction);
   menu.addAction(GlobalGUI::freedesktopNewFolder(),"Add Folder",this,&MiniatureMenuWidget::addFolderAction);
   menu.addSeparator();
   if(item!=NULL)

@@ -9,7 +9,7 @@ void OmegaRpgMainWindow::setInitiativeMenu(bool value)
 {
   initiativeShown = value;
   if(initiativeShown)
-    initiativeAction->setIcon(GlobalGUI::freedesktopActive());
+    initiativeAction->setIcon(GlobalGUI::iconActive());
   else
     initiativeAction->setIcon(QIcon());
   map->showInitiative(value);

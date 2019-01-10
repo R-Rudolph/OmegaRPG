@@ -180,7 +180,7 @@ void InitiativeWidget::initiativeListContextMenu(const QPoint &pos)
     initiativeContextMenuItem = initiativeList->itemAt(pos);
     if(initiativeContextMenuItem!=nullptr)
     {
-      menu.addAction(GlobalGUI::freedesktopActive(),"Set Active",this,&InitiativeWidget::setActiveInitiativeEntry);
+      menu.addAction(GlobalGUI::iconActive(),"Set Active",this,&InitiativeWidget::setActiveInitiativeEntry);
       QMenu* colorMenu = menu.addMenu("Set Color");
       colorMenu->setMinimumWidth(25);
       fillColorMenu(colorMenu);
@@ -190,7 +190,7 @@ void InitiativeWidget::initiativeListContextMenu(const QPoint &pos)
       menu.addAction(GlobalGUI::freedesktopRemove(),"Remove",this,&InitiativeWidget::removeInitiativeEntry);
       menu.addSeparator();
     }
-    menu.addAction(GlobalGUI::freedesktopAdd(),"New Entry",this,&InitiativeWidget::newInitiativeEntry);
+    menu.addAction(GlobalGUI::iconAdd(),"New Entry",this,&InitiativeWidget::newInitiativeEntry);
     menu.addSeparator();
     menu.addAction(GlobalGUI::freedesktopSortAscending(),"Sort By Initiative",this,&InitiativeWidget::sortByInitiative);
     QMenu* iconSize = menu.addMenu(GlobalGUI::freedesktopZoomFitBest(),"Icon Size");

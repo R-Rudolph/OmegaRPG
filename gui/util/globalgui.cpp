@@ -10,7 +10,7 @@ QIcon GlobalGUI::iconByName(const QString &name)
   QIcon icon = QIcon::fromTheme(name);
   if(icon.isNull())
   {
-    QtIO::err << "Error: Could not load icon from theme: " << name << endl;
+    icon = customIcon(name);
   }
   return icon;
 }
@@ -18,12 +18,20 @@ QIcon GlobalGUI::iconByName(const QString &name)
 QIcon GlobalGUI::standardIcon(QStyle::StandardPixmap pixmap)
 {
   if(style)
-    return style->standardIcon(pixmap);
+  {
+    QIcon icon = style->standardIcon(pixmap);
+    return icon;
+  }
   else
   {
     QtIO::err << "Error: Could not standard icon; style not set" << endl;
     return QIcon();
   }
+}
+
+QIcon GlobalGUI::customIcon(const QString& name)
+{
+  return QIcon(":icons/misc/"+name+".png");
 }
 
 void GlobalGUI::initIcons(QApplication& application)
@@ -40,19 +48,19 @@ QIcon GlobalGUI::getOmegaRPGIcon()
   return QIcon(":icons/omegarpg.png");
 }
 
-QIcon GlobalGUI::freedesktopActive()
+QIcon GlobalGUI::iconActive()
 {
-  return GlobalGUI::iconByName("checkmark");
+  return standardIcon(QStyle::SP_DialogApplyButton);
 }
 
-QIcon GlobalGUI::freedesktopAdd()
+QIcon GlobalGUI::iconAdd()
 {
-  return GlobalGUI::iconByName("list-add");
+  return iconByName("list-add");
 }
 
 QIcon GlobalGUI::freedesktopNewFolder()
 {
-  return GlobalGUI::iconByName("folder-new");
+  return standardIcon(QStyle::SP_FileDialogNewFolder);
 }
 
 QIcon GlobalGUI::freedesktopRemove()
@@ -82,7 +90,7 @@ QIcon GlobalGUI::freedesktopPaste()
 
 QIcon GlobalGUI::freedesktopTextEditor()
 {
-  return GlobalGUI::iconByName("accessories-text-editor");
+  return GlobalGUI::iconByName("edit");
 }
 
 QIcon GlobalGUI::freedesktopSortAscending()
@@ -92,7 +100,7 @@ QIcon GlobalGUI::freedesktopSortAscending()
 
 QIcon GlobalGUI::freedesktopZoomFitBest()
 {
-  return GlobalGUI::iconByName("zoom-fit-best");
+  return GlobalGUI::iconByName("zoom");
 }
 
 QIcon GlobalGUI::freedesktopSave()
@@ -152,5 +160,5 @@ QIcon GlobalGUI::freedesktopGoNext()
 
 QIcon GlobalGUI::refreshIcon()
 {
-  return QIcon::fromTheme("view-refresh");
+  return standardIcon(QStyle::SP_BrowserReload);
 }

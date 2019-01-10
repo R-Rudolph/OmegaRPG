@@ -55,7 +55,27 @@ RESOURCES += \
     ../icons/attention.png \
     ../sounds/quack.mp3 \
     ../icons/saddie.png \
-    ../qml/ErrorMessage.qml
+    ../qml/ErrorMessage.qml \
+    ../icons/misc/edit-delete.svg           \
+    ../icons/misc/security-medium.svg       \
+    ../icons/misc/view-sort-descending.svg  \
+    ../icons/misc/list-add.svg              \
+    ../icons/misc/security-low.svg          \
+    ../icons/misc/edit-paste.svg            \
+    ../icons/misc/edit-cut.svg              \
+    ../icons/misc/security-high.svg         \
+    ../icons/misc/folder.svg                \
+    ../icons/misc/document-properties.svg   \
+    ../icons/misc/document-close.svg        \
+    ../icons/misc/document-open.svg         \
+    ../icons/misc/edit-copy.svg             \
+    ../icons/misc/edit.svg                  \
+    ../icons/misc/zoom.svg                  \
+    ../icons/misc/go-next.svg               \
+    ../icons/misc/application-exit.svg      \
+    ../icons/misc/view-sort-ascending.svg   \
+    ../icons/misc/help-about.svg            \
+    ../icons/misc/list-remove.svg
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

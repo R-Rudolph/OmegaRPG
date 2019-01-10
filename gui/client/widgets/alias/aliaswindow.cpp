@@ -363,7 +363,7 @@ void AliasWindow::aliasTreeContextMenu(const QPoint &pos)
 {
   contextMenuCurrentItem = aliasTree->itemAt(pos);
   QMenu menu(this);
-  QAction* newAliasAction = menu.addAction(GlobalGUI::freedesktopAdd(),"New Alias",this,&AliasWindow::contextMenuNewAliasAction);
+  QAction* newAliasAction = menu.addAction(GlobalGUI::iconAdd(),"New Alias",this,&AliasWindow::contextMenuNewAliasAction);
   if(contextMenuCurrentItem==nullptr)
   {
     newAliasAction->setToolTip("This is only possible within alias folders.");
