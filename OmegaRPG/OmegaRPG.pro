@@ -3,7 +3,7 @@ TEMPLATE = app
 include(../version.pri)
 
 RC_FILE = OmegaRPG.rc
-QT += widgets network multimedia xml opengl quickwidgets
+QT += widgets network multimedia xml opengl quickwidgets svg
 CONFIG += c++14
 CONFIG += static
 INCLUDEPATH += ..
@@ -75,7 +75,8 @@ RESOURCES += \
     ../icons/misc/application-exit.svg      \
     ../icons/misc/view-sort-ascending.svg   \
     ../icons/misc/help-about.svg            \
-    ../icons/misc/list-remove.svg
+    ../icons/misc/list-remove.svg           \
+    ../icons/misc/document-save.svg
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
