@@ -12,6 +12,10 @@ QIcon GlobalGUI::iconByName(const QString &name)
   {
     icon = customIcon(name);
   }
+  if(icon.isNull())
+  {
+    QtIO::err << "could not open icon by name:" << name;
+  }
   return icon;
 }
 
@@ -31,15 +35,11 @@ QIcon GlobalGUI::standardIcon(QStyle::StandardPixmap pixmap)
 
 QIcon GlobalGUI::customIcon(const QString& name)
 {
-  return QIcon(":icons/misc/"+name+".png");
+  return QIcon(":icons/misc/"+name+".svg");
 }
 
 void GlobalGUI::initIcons(QApplication& application)
 {
-  #ifdef _WIN32
-  QIcon::setThemeSearchPaths({":/icons"});
-  QIcon::setThemeName("oxygen");
-  #endif
   style = application.style();
 }
 
