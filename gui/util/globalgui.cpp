@@ -14,7 +14,7 @@ QIcon GlobalGUI::iconByName(const QString &name)
   }
   if(icon.isNull())
   {
-    QtIO::err << "could not open icon by name:" << name;
+    QtIO::err << "Could not open icon by name:" << name;
   }
   return icon;
 }
@@ -28,7 +28,7 @@ QIcon GlobalGUI::standardIcon(QStyle::StandardPixmap pixmap)
   }
   else
   {
-    QtIO::err << "Error: Could not standard icon; style not set" << endl;
+    QtIO::err << "Error: Could not standard icon; style not set." << endl;
     return QIcon();
   }
 }
