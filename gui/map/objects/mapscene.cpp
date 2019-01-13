@@ -717,9 +717,9 @@ void MapScene::drawMeasurement(QPointF point)
 {
   clearMeasurement();
   QColor col = getVisibleColor();
-  measureLine = addLine(QLine(measureStart.toPoint(),point.toPoint()),QPen(QBrush(col),5));
+  measureLine = addLine(QLine(measureStart.toPoint(),point.toPoint()),QPen(QBrush(col),2,Qt::DashLine));
   double ed = std::hypot((double)measureStart.x()-point.x(),(double)measureStart.y()-point.y());
-  measureCircle = addEllipse(measureStart.x()-ed,measureStart.y()-ed,2*ed,2*ed,QPen(QBrush(col),1));
+  measureCircle = addEllipse(measureStart.x()-ed,measureStart.y()-ed,2*ed,2*ed,QPen(QBrush(col),1,Qt::DashLine));
   QFont font;
   font.setPixelSize(20/(zoom));
   measureText = addText(orpg::Settings::get()->distanceMeasure.distanceString(point/gridSize,measureStart/gridSize),font);
