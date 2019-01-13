@@ -1,7 +1,8 @@
-# OmegaRPG
-OmegaRPG is a free, open-source Virtual Game Tabletop application inspired by OpenRPG. It is licensed under the GNU General Public License Version 3.
+<img src="https://github.com/R-Rudolph/OmegaRPG/blob/master/icons/omegarpg.png" width="200" height="200" /> 
 
-![OmegaRPG Screenshot](https://github.com/R-Rudolph/OmegaRPG/blob/master/screenshots/screenshot1.png?raw=true "A regular, naturally occuring OmegaRPG room")
+# OmegaRPG
+ 
+OmegaRPG is a free, open-source Virtual Game Tabletop application inspired by OpenRPG. It is licensed under the GNU General Public License Version 3.
 
 ## Features
 
@@ -62,6 +63,6 @@ make
 
 Currenty, [QuaZIP](https://stachenov.github.io/quazip/) is compiled statically into OmegaRPG. In future versions it may be added as a dependency and linked dynamically.
 
+## Screenshots
 
-
-
+![OmegaRPG Screenshot](https://github.com/R-Rudolph/OmegaRPG/blob/master/screenshots/screenshot1.png?raw=true "A regular, naturally occuring OmegaRPG room")
