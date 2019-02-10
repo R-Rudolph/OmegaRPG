@@ -57,6 +57,7 @@ void AliasSheetBinderWidget::addSheetWidget(AliasSheetWidget *sheet)
     tabs->addTab(sheet,sheet->getSheetName());
     sheet->setNightMode(nightMode);
     connect(sheet,&AliasSheetWidget::chat,this,&AliasSheetBinderWidget::chat);
+    connect(sheet,&AliasSheetWidget::error,this,&AliasSheetBinderWidget::error);
     connect(sheet,&AliasSheetWidget::changed,this,&AliasSheetBinderWidget::changed);
   }
 }

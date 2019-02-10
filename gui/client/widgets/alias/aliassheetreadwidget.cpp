@@ -44,6 +44,7 @@ void AliasSheetReadWidget::currentChanged(const Alias *alias)
     updateNightMode();
     connect(binder,&AliasSheetBinderWidget::changed,this,&AliasSheetReadWidget::changed);
     connect(binder,&AliasSheetBinderWidget::chat,this,&AliasSheetReadWidget::chat);
+    connect(binder,&AliasSheetBinderWidget::error,this,&AliasSheetReadWidget::error);
   }
 }
 

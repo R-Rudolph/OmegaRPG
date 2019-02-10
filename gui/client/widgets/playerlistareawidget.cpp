@@ -16,6 +16,7 @@ PlayerListAreaWidget::PlayerListAreaWidget(QWidget *parent) : QWidget(parent)
   connect(playerList,&PlayerList::assignStatus,this,&PlayerListAreaWidget::assignStatus);
   connect(playerList,&PlayerList::openWhisper,this,&PlayerListAreaWidget::openWhisper);
   connect(aliasSheet,&AliasSheetReadWidget::chat,this,&PlayerListAreaWidget::chat);
+  connect(aliasSheet,&AliasSheetReadWidget::error,this,&PlayerListAreaWidget::error);
 }
 
 void PlayerListAreaWidget::setID(quint32 id)

@@ -474,7 +474,7 @@ void ChatAreaWidget::printStatusMessage(QString text)
 void ChatAreaWidget::printChatMessage(const orpg::ChatMessage& chatMessage)
 {
   QTextBrowser* tb = getChatBrowser(chatMessage.senderId(),chatMessage.to());
-  if(tb==NULL)
+  if(tb==nullptr)
     return;
   QString idpart;
   if(chatMessage.hasSenderId())

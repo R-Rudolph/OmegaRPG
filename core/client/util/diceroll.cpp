@@ -14,7 +14,7 @@ const QRegularExpression DiceRoll::completeStringRegEx_ =
                          "(?<"+signString_+">[+-]?)[\\s\\t]*"                                                   /// sign of first roll
                          "(((?<"+numString_+">\\d+)?(?<"+diceString_+">d))?(?<"+valueString_+">\\d+))[\\s\\t]*" /// dice of first roll
                          "(\\((?<"+nameString_+">.*?)\\))?[\\s\\t]*"                                            /// name of first roll
-                         "(?<"+remainingString_+">([+-][\\s\\t]*((\\d+)?(d))?(\\d+)[\\s\\t]*(.*?)[\\s\\t]*?)*)"   ///remaining rolls
+                         "(?<"+remainingString_+">([+-][\\s\\t]*((\\d+)?(d))?(\\d+)[\\s\\t]*(\\(.*?\\))?[\\s\\t]*)*)"   ///remaining rolls
                          "$");
 
 QString DiceRoll::rawString() const

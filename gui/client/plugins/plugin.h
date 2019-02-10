@@ -28,6 +28,7 @@ signals:
   void pluginDataSet();
   void pluginDataChanged(const QJsonObject& data);
   void chat(const QString& text);
+  void error(const QString& text);
 public slots:
 private:
   bool editable_;

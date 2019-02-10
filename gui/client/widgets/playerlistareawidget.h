@@ -22,6 +22,7 @@ signals:
   void assignStatus(quint32 id, PlayerRole status, QString dmpass);
   void openWhisper(quint32 id);
   void chat(const QString& text);
+  void error(const QString& text);
 public slots:
   void setID(quint32 id);
   void setClientStatus(PlayerRole status);

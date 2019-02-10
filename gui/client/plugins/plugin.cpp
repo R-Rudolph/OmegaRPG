@@ -1,5 +1,6 @@
 #include "plugin.h"
 #include "core/client/util/diceroll.h"
+#include "core/client/util/dice.h"
 
 Plugin::Plugin(QQuickItem *parent) : QQuickItem(parent)
 {
@@ -51,7 +52,14 @@ void Plugin::setEditable(bool editable)
 void Plugin::roll(const QString& rollString)
 {
   DiceRoll diceRoll(rollString);
-  chat(diceRoll.roll());
+  if(diceRoll.valid())
+  {
+    chat(diceRoll.roll());
+  }
+  else
+  {
+    error("Malformed dice roll string: "+diceRoll.rawString());
+  }
 }
 
 

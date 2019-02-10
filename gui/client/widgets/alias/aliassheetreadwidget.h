@@ -22,6 +22,7 @@ public:
 signals:
   void editedAlias(Alias* alias);
   void chat(const QString& text);
+  void error(const QString& text);
 public slots:
   void setNightMode(bool value);
 private slots:

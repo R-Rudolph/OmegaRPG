@@ -23,6 +23,7 @@ public:
 signals:
   void changed();
   void chat(const QString& text);
+  void error(const QString& text);
 public slots:
   void exportSheet();
   virtual void setNightMode(bool value);

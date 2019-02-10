@@ -20,6 +20,7 @@ AliasSheetPluginWidget::AliasSheetPluginWidget(const AliasSheetPlugin* sheet, bo
       data_ = sheet_->pluginData();
       connect(pluginWidget,&Plugin::pluginDataChanged,this,&AliasSheetPluginWidget::pluginDataChanged);
       connect(pluginWidget,&Plugin::chat,this,&AliasSheetWidget::chat);
+      connect(pluginWidget,&Plugin::error,this,&AliasSheetWidget::error);
     }
   }
   else

@@ -187,6 +187,7 @@ OmegaRpgMainWindow::OmegaRpgMainWindow()
   connect(playerList,&PlayerListAreaWidget::openWhisper,chat,&ChatAreaWidget::openWhisperTab);
   connect(playerList,&PlayerListAreaWidget::bootFromRoom,control,&orpg::ClientControl::kick);
   connect(playerList,&PlayerListAreaWidget::chat,chat,&ChatAreaWidget::chatPrivate);
+  connect(playerList,&PlayerListAreaWidget::error,chat,&ChatAreaWidget::printErrorMessage);
 
   //settings window signals
   connect(settingsWindow,&OmegaRpgSettingsWindow::demandSettings,this,&OmegaRpgMainWindow::updateSettingsWindow);
