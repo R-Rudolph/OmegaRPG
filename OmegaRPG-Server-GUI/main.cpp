@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
   Global::createEnvironment();
   QApplication a(argc, argv);
-  a.setWindowIcon(GlobalGUI::getOmegaRPGIcon());
+  a.setWindowIcon(GlobalGUI::getOmegaRPGIconSmall());
   OmegaRpgServerMainWindow w;
   w.setWindowTitle("OmegaRPG Server");
   w.show();

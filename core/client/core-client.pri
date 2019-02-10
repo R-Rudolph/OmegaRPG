@@ -14,7 +14,7 @@ SOURCES += \
     $$PWD/util/sslsettings.cpp \
     $$PWD/util/textformat.cpp \
     $$PWD/alias/aliasset.cpp \
-    $$PWD/alias/diceroll.cpp \
+    $$PWD/alias/aliasdiceroll.cpp \
     $$PWD/alias/aliassheetnotes.cpp \
     $$PWD/alias/aliassheettext.cpp \
     $$PWD/alias/aliassheetbinder.cpp \
@@ -41,7 +41,10 @@ SOURCES += \
     $$PWD/log/chatmessageforlog.cpp \
     $$PWD/log/elements/abstractlogelement.cpp \
     $$PWD/util/dice.cpp \
-    $$PWD/alias/aliassheetplugin.cpp
+    $$PWD/alias/aliassheetplugin.cpp \
+    $$PWD/util/diceroll.cpp \
+    $$PWD/util/dicerollentry.cpp \
+    $$PWD/util/dicerollresult.cpp
 
 
 HEADERS += \
@@ -58,7 +61,7 @@ HEADERS += \
     $$PWD/util/sslsettings.h \
     $$PWD/util/textformat.h \
     $$PWD/alias/aliasset.h \
-    $$PWD/alias/diceroll.h \
+    $$PWD/alias/aliasdiceroll.h \
     $$PWD/alias/aliassheetnotes.h \
     $$PWD/alias/aliassheettext.h \
     $$PWD/alias/aliassheetbinder.h \
@@ -85,4 +88,7 @@ HEADERS += \
     $$PWD/log/chatmessageforlog.h \
     $$PWD/log/elements/abstractlogelement.h \
     $$PWD/util/dice.h \
-    $$PWD/alias/aliassheetplugin.h
+    $$PWD/alias/aliassheetplugin.h \
+    $$PWD/util/diceroll.h \
+    $$PWD/util/dicerollentry.h \
+    $$PWD/util/dicerollresult.h

@@ -1,4 +1,5 @@
 #include "plugin.h"
+#include "core/client/util/diceroll.h"
 
 Plugin::Plugin(QQuickItem *parent) : QQuickItem(parent)
 {
@@ -46,4 +47,11 @@ void Plugin::setEditable(bool editable)
   editable_ = editable;
   emit editableChanged();
 }
+
+void Plugin::roll(const QString& rollString)
+{
+  DiceRoll diceRoll(rollString);
+  chat(diceRoll.roll());
+}
+
 

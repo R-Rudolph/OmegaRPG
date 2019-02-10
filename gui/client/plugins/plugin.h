@@ -22,6 +22,7 @@ public:
   void setPluginData(const QJsonObject& pluginData);
   bool editable() const;
   void setEditable(bool editable);
+  Q_INVOKABLE void roll(const QString& rollString);
 signals:
   void editableChanged();
   void pluginDataSet();

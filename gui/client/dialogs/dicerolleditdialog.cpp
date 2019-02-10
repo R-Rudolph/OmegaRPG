@@ -104,7 +104,7 @@ void DiceRollEditDialog::addDiceRoll(int num, int value)
 void DiceRollEditDialog::bonusChanged()
 {
   QString bonus = bonusEdit->text();
-  if(DiceRoll::matchesExpression(bonus))
+  if(AliasDiceRoll::matchesExpression(bonus))
   {
     bonusEdit->setToolTip("");
     bonusEdit->setStyleSheet("color: #000000");

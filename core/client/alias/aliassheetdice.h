@@ -5,13 +5,13 @@
 #include <QList>
 #include <QJsonArray>
 #include "aliassheet.h"
-#include "diceroll.h"
+#include "aliasdiceroll.h"
 
-class DiceRoll;
+class AliasDiceRoll;
 
 class AliasSheetDice : public AliasSheet
 {
-  DiceRoll rolls;
+  AliasDiceRoll rolls;
 public:
   const static QString className;
   AliasSheetDice();
@@ -20,8 +20,8 @@ public:
   virtual QJsonObject toJson() const;
   virtual void loadJson(const QJsonObject& sheetObject);
   virtual AliasSheet* copy() const;
-  DiceRoll getRolls() const;
-  void setRolls(const DiceRoll &value);
+  AliasDiceRoll getRolls() const;
+  void setRolls(const AliasDiceRoll &value);
   virtual SheetType getType() const;
 };
 

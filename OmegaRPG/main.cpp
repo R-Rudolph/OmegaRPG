@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
   QApplication app(argc, argv);
   Global::createEnvironment();
   GlobalGUI::initIcons(app);
-  app.setWindowIcon(GlobalGUI::getOmegaRPGIcon());
+  app.setWindowIcon(GlobalGUI::getOmegaRPGIconSmall());
 
   OmegaRpgMainWindow orpg;
   orpg.show();

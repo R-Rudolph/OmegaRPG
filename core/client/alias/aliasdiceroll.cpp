@@ -1,70 +1,70 @@
-#include "diceroll.h"
+#include "aliasdiceroll.h"
 
-const QString DiceRoll::matchesExpressionStrings = "^"
+const QString AliasDiceRoll::matchesExpressionStrings = "^"
                                                    "(\\s*(\\+|\\-)?\\s*((\\d*)d)?(\\d+))?"
                                                    "(\\s*(\\+|\\-)\\s*(((\\d*)d)?(\\d+)))*"
                                                    "\\s*"
                                                    "$";
-const QString DiceRoll::parseExpressionStart = "^(\\s*(?<sign>\\+|\\-)?\\s*((?<numDice>\\d*)(?<d>d))?(?<diceValue>\\d+))";
-const QString DiceRoll::parseExpressionContinue = "^(\\s*(?<sign>\\+|\\-)\\s*((?<numDice>\\d*)(?<d>d))?(?<diceValue>\\d+))";
+const QString AliasDiceRoll::parseExpressionStart = "^(\\s*(?<sign>\\+|\\-)?\\s*((?<numDice>\\d*)(?<d>d))?(?<diceValue>\\d+))";
+const QString AliasDiceRoll::parseExpressionContinue = "^(\\s*(?<sign>\\+|\\-)\\s*((?<numDice>\\d*)(?<d>d))?(?<diceValue>\\d+))";
 
-QString DiceRoll::getBonusString() const
+QString AliasDiceRoll::getBonusString() const
 {
   return bonusString;
 }
 
-void DiceRoll::setBonusString(const QString &value)
+void AliasDiceRoll::setBonusString(const QString &value)
 {
   bonusString = value;
   parseRollString();
 }
 
-QString DiceRoll::getName() const
+QString AliasDiceRoll::getName() const
 {
   return name;
 }
 
-void DiceRoll::setName(const QString &value)
+void AliasDiceRoll::setName(const QString &value)
 {
   name = value;
 }
 
-bool DiceRoll::getExpanded() const
+bool AliasDiceRoll::getExpanded() const
 {
   return expanded;
 }
 
-void DiceRoll::setExpanded(bool value)
+void AliasDiceRoll::setExpanded(bool value)
 {
   expanded = value;
 }
 
-bool DiceRoll::isEmpty()
+bool AliasDiceRoll::isEmpty()
 {
   return name.isEmpty() && bonusString.isEmpty() && subrolls.isEmpty();
 }
 
-QString DiceRoll::getNotes() const
+QString AliasDiceRoll::getNotes() const
 {
   return notes;
 }
 
-void DiceRoll::setNotes(const QString &value)
+void AliasDiceRoll::setNotes(const QString &value)
 {
   notes = value;
 }
 
-bool DiceRoll::getRollParent() const
+bool AliasDiceRoll::getRollParent() const
 {
   return rollParent;
 }
 
-void DiceRoll::setRollParent(bool value)
+void AliasDiceRoll::setRollParent(bool value)
 {
   rollParent = value;
 }
 
-QPair<int, int> DiceRoll::rollFromInfo(const QString &sign, const QString &d, const QString &numDice, const QString &diceValue)
+QPair<int, int> AliasDiceRoll::rollFromInfo(const QString &sign, const QString &d, const QString &numDice, const QString &diceValue)
 {
   QPair<int,int> result;
   bool ok;
@@ -82,27 +82,27 @@ QPair<int, int> DiceRoll::rollFromInfo(const QString &sign, const QString &d, co
   return result;
 }
 
-QList<QPair<int, int> > DiceRoll::getRolls() const
+QList<QPair<int, int> > AliasDiceRoll::getRolls() const
 {
   return parsedRolls;
 }
 
-QList<DiceRoll>& DiceRoll::getSubrolls()
+QList<AliasDiceRoll>& AliasDiceRoll::getSubrolls()
 {
   return subrolls;
 }
 
-void DiceRoll::addSubroll(const DiceRoll &roll)
+void AliasDiceRoll::addSubroll(const AliasDiceRoll &roll)
 {
   subrolls.append(roll);
 }
 
-void DiceRoll::clearSubrolls()
+void AliasDiceRoll::clearSubrolls()
 {
   subrolls.clear();
 }
 
-void DiceRoll::parseRollString()
+void AliasDiceRoll::parseRollString()
 {
   QString string = bonusString;
   parsedRolls.clear();
@@ -122,7 +122,7 @@ void DiceRoll::parseRollString()
   }
 }
 
-int DiceRoll::parseRollSubString(const QString &string)
+int AliasDiceRoll::parseRollSubString(const QString &string)
 {
   QRegularExpression regex(parseExpressionContinue);
   QRegularExpressionMatch match = regex.match(string);
@@ -136,13 +136,13 @@ int DiceRoll::parseRollSubString(const QString &string)
     return 0;
 }
 
-DiceRoll::DiceRoll()
+AliasDiceRoll::AliasDiceRoll()
 {
   rollParent = true;
   expanded = false;
 }
 
-DiceRoll::DiceRoll(const QString &name, const QString &roll, const QList<DiceRoll> &subrolls) :DiceRoll()
+AliasDiceRoll::AliasDiceRoll(const QString &name, const QString &roll, const QList<AliasDiceRoll> &subrolls) :AliasDiceRoll()
 {
   this->name = name;
   this->bonusString = roll;
@@ -150,7 +150,7 @@ DiceRoll::DiceRoll(const QString &name, const QString &roll, const QList<DiceRol
   this->subrolls = subrolls;
 }
 
-DiceRoll::DiceRoll(const QJsonObject &json) :DiceRoll()
+AliasDiceRoll::AliasDiceRoll(const QJsonObject &json) :AliasDiceRoll()
 {
   rollParent = json["dontRollParent"].toBool(true);
   name = json["name"].toString();
@@ -159,12 +159,12 @@ DiceRoll::DiceRoll(const QJsonObject &json) :DiceRoll()
   QJsonArray subrollArray = json["subrolls"].toArray();
   for(int i=0;i<subrollArray.size();i++)
   {
-    subrolls.append(DiceRoll(subrollArray[i].toObject()));
+    subrolls.append(AliasDiceRoll(subrollArray[i].toObject()));
   }
   notes = json["notes"].toString();
 }
 
-QJsonObject DiceRoll::toJson() const
+QJsonObject AliasDiceRoll::toJson() const
 {
   QJsonObject result;
   result.insert("dontRollParent",rollParent);
@@ -180,7 +180,7 @@ QJsonObject DiceRoll::toJson() const
   return result;
 }
 
-bool DiceRoll::matchesExpression(const QString &string)
+bool AliasDiceRoll::matchesExpression(const QString &string)
 {
   QRegularExpression expr(matchesExpressionStrings);
   return expr.match(string).hasMatch();

@@ -24,16 +24,16 @@ class AliasSheetDiceWidget : public AliasSheetWidget
   TreeWidgetExtended* diceList;
   QSpinBox* modifierBox;
 
-  DiceRoll dice;
-  QMap<QTreeWidgetItem*,DiceRoll*> diceMap;
+  AliasDiceRoll dice;
+  QMap<QTreeWidgetItem*,AliasDiceRoll*> diceMap;
 
   QTreeWidgetItem* contextMenuCurrentItem;
   void clearList();
   void handleExpansion(QTreeWidgetItem* item);
   void handleExpansion();
-  QTreeWidgetItem *itemFromDice(DiceRoll &dice);
-  QTreeWidgetItem *itemFromDice(DiceRoll* dice);
-  DiceRoll diceFromItem(QTreeWidgetItem* item);
+  QTreeWidgetItem *itemFromDice(AliasDiceRoll &dice);
+  QTreeWidgetItem *itemFromDice(AliasDiceRoll* dice);
+  AliasDiceRoll diceFromItem(QTreeWidgetItem* item);
   int rollDice(QPair<int,int> dice, QString& text, bool suppressPlus=false);
   void buildListFromModel();
   void buildModelFromList();
@@ -41,7 +41,7 @@ public:
   explicit AliasSheetDiceWidget(bool edit, const QString& sheetName, QWidget *parent = nullptr);
   explicit AliasSheetDiceWidget(const AliasSheetDice* sheet, bool edit, QWidget *parent = nullptr);
   virtual AliasSheet* toAliasSheet();
-  void setDice(const DiceRoll& dice);
+  void setDice(const AliasDiceRoll& dice);
 signals:
 
 private slots:

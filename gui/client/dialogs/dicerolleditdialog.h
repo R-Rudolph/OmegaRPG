@@ -10,7 +10,7 @@
 #include <QTextEdit>
 #include <QCheckBox>
 
-#include "core/client/alias/diceroll.h"
+#include "core/client/alias/aliasdiceroll.h"
 #include "dialogs/nightmodedialog.h"
 
 class DiceBarWidget;

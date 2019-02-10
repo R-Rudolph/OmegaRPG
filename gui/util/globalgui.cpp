@@ -48,6 +48,13 @@ QIcon GlobalGUI::getOmegaRPGIcon()
   return QIcon(":icons/omegarpg.png");
 }
 
+QIcon GlobalGUI::getOmegaRPGIconSmall()
+{
+  QPixmap image(":icons/omegarpg.png");
+  image = image.scaledToHeight(64);
+  return QIcon(image);
+}
+
 QIcon GlobalGUI::iconActive()
 {
   return standardIcon(QStyle::SP_DialogApplyButton);

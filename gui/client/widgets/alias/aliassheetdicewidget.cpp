@@ -29,12 +29,12 @@ void AliasSheetDiceWidget::handleExpansion()
     handleExpansion(diceList->topLevelItem(i));
 }
 
-QTreeWidgetItem *AliasSheetDiceWidget::itemFromDice(DiceRoll &dice)
+QTreeWidgetItem *AliasSheetDiceWidget::itemFromDice(AliasDiceRoll &dice)
 {
-  return itemFromDice((DiceRoll*)&dice);
+  return itemFromDice((AliasDiceRoll*)&dice);
 }
 
-QTreeWidgetItem *AliasSheetDiceWidget::itemFromDice(DiceRoll *dice)
+QTreeWidgetItem *AliasSheetDiceWidget::itemFromDice(AliasDiceRoll *dice)
 {
   QTreeWidgetItem* item = new QTreeWidgetItem(QStringList({dice->getName(),dice->getBonusString()}));
   item->setFlags(item->flags() | Qt::ItemIsDropEnabled);
@@ -53,9 +53,9 @@ QTreeWidgetItem *AliasSheetDiceWidget::itemFromDice(DiceRoll *dice)
   return item;
 }
 
-DiceRoll AliasSheetDiceWidget::diceFromItem(QTreeWidgetItem *item)
+AliasDiceRoll AliasSheetDiceWidget::diceFromItem(QTreeWidgetItem *item)
 {
-  DiceRoll newDice;
+  AliasDiceRoll newDice;
   newDice.setExpanded(item->isExpanded());
   newDice.setName(diceMap[item]->getName());
   newDice.setBonusString(diceMap[item]->getBonusString());
@@ -120,7 +120,7 @@ void AliasSheetDiceWidget::buildListFromModel()
 
 void AliasSheetDiceWidget::buildModelFromList()
 {
-  DiceRoll newDice;
+  AliasDiceRoll newDice;
   for(int i=0;i<diceList->topLevelItemCount();i++)
   {
     newDice.addSubroll(diceFromItem(diceList->topLevelItem(i)));
@@ -183,7 +183,7 @@ AliasSheet *AliasSheetDiceWidget::toAliasSheet()
   return sheet;
 }
 
-void AliasSheetDiceWidget::setDice(const DiceRoll &dice)
+void AliasSheetDiceWidget::setDice(const AliasDiceRoll &dice)
 {
   this->dice = dice;
   buildListFromModel();
@@ -209,7 +209,7 @@ void AliasSheetDiceWidget::contextMenu(const QPoint& pos)
   {
     QString clip = QApplication::clipboard()->text();
     QJsonDocument doc = QJsonDocument::fromJson(clip.toUtf8());
-    DiceRoll roll(doc.object());
+    AliasDiceRoll roll(doc.object());
     if(roll.isEmpty())
       pasteAction->setDisabled(true);
   }
@@ -300,7 +300,7 @@ void AliasSheetDiceWidget::contextNewItem()
 {
   if(contextMenuCurrentItem==nullptr)
   {
-    dice.addSubroll(DiceRoll("New Roll",""));
+    dice.addSubroll(AliasDiceRoll("New Roll",""));
     buildListFromModel();
     emit changed();
   }
@@ -308,7 +308,7 @@ void AliasSheetDiceWidget::contextNewItem()
   {
     if(diceMap.contains(contextMenuCurrentItem))
     {
-      diceMap[contextMenuCurrentItem]->addSubroll(DiceRoll("New Roll",""));
+      diceMap[contextMenuCurrentItem]->addSubroll(AliasDiceRoll("New Roll",""));
       diceMap[contextMenuCurrentItem]->setExpanded(true);
     }
     buildListFromModel();
@@ -329,7 +329,7 @@ void AliasSheetDiceWidget::contextPasteItem()
 {
   QString clip = QApplication::clipboard()->text();
   QJsonDocument doc = QJsonDocument::fromJson(clip.toUtf8());
-  DiceRoll roll(doc.object());
+  AliasDiceRoll roll(doc.object());
   if(!roll.isEmpty())
   {
     if(contextMenuCurrentItem==nullptr)

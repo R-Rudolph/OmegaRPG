@@ -2,12 +2,12 @@
 
 const QString AliasSheetDice::className = "dice";
 
-DiceRoll AliasSheetDice::getRolls() const
+AliasDiceRoll AliasSheetDice::getRolls() const
 {
   return rolls;
 }
 
-void AliasSheetDice::setRolls(const DiceRoll &value)
+void AliasSheetDice::setRolls(const AliasDiceRoll &value)
 {
   rolls = value;
 }
@@ -36,7 +36,7 @@ AliasSheetDice::AliasSheetDice(const QJsonObject &json)
 void AliasSheetDice::loadJson(const QJsonObject &sheetObject)
 {
   this->sheetName = sheetObject["name"].toString();
-  this->rolls = DiceRoll(sheetObject["rolls"].toObject());
+  this->rolls = AliasDiceRoll(sheetObject["rolls"].toObject());
 }
 
 QJsonObject AliasSheetDice::toJson() const

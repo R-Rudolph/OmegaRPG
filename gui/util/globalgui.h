@@ -14,6 +14,7 @@ class GlobalGUI
 public:
   static void initIcons(QApplication& application);
   static QIcon getOmegaRPGIcon();
+  static QIcon getOmegaRPGIconSmall();
   //x11 icon theme functions
   static QIcon iconActive();
   static QIcon iconAdd();
