@@ -21,6 +21,7 @@ private:
   bool valid_;
   QString name_;
   QVector<DiceRollEntry> rolls_;
+  QString rawString_;
 public:
   DiceRoll();
   DiceRoll(const QString& diceRollString);
@@ -28,6 +29,7 @@ public:
   bool valid() const;
   DiceRoll operator+(const DiceRoll& other);
   QString roll() const;
+  QString rawString() const;
 };
 
 #endif // DICEROLL_H

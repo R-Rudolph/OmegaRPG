@@ -14,8 +14,13 @@ const QRegularExpression DiceRoll::completeStringRegEx_ =
                          "(?<"+signString_+">[+-]?)[\\s\\t]*"                                                   /// sign of first roll
                          "(((?<"+numString_+">\\d+)?(?<"+diceString_+">d))?(?<"+valueString_+">\\d+))[\\s\\t]*" /// dice of first roll
                          "(\\((?<"+nameString_+">.*?)\\))?[\\s\\t]*"                                            /// name of first roll
-                         "(?<"+remainingString_+">[+-][\\s\\t]*((\\d+)?(d))?(\\d+)[\\s\\t]*(.*?)[\\s\\t]*?)*"   ///remaining rolls
+                         "(?<"+remainingString_+">([+-][\\s\\t]*((\\d+)?(d))?(\\d+)[\\s\\t]*(.*?)[\\s\\t]*?)*)"   ///remaining rolls
                          "$");
+
+QString DiceRoll::rawString() const
+{
+  return rawString_;
+}
 
 DiceRoll::DiceRoll()
 {
@@ -25,6 +30,7 @@ DiceRoll::DiceRoll()
 DiceRoll::DiceRoll(const QString& diceRollString)
   : DiceRoll()
 {
+  rawString_ = diceRollString;
   QString currentString = diceRollString;
   auto matches = completeStringRegEx_.match(currentString);
   if(!matches.hasMatch())
@@ -46,6 +52,11 @@ DiceRoll::DiceRoll(const QString& diceRollString)
     rolls_.append(newEntry);
     currentString = matches.captured(remainingString_);
   }
+}
+
+bool DiceRoll::valid() const
+{
+  return valid_;
 }
 
 QString DiceRoll::roll() const
