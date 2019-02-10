@@ -67,8 +67,10 @@ DiceRollResult DiceRollEntry::roll(bool signOnPositive) const
     int sum = 0;
     for(int i=0;i<numDice_;i++)
     {
-      int rolledValue = static_cast<int>(Dice::roll(value_));
-      rollList.append(QString::number(rolledValue));
+      int rolledValue = static_cast<int>(Dice::roll(std::abs(value_)));
+      if(value_ < 0)
+        rolledValue = - rolledValue;
+      rollList.append(QString::number(std::abs(rolledValue)));
       sum += rolledValue;
     }
     text += rollList.join(',');
