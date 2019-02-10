@@ -53,7 +53,7 @@ DiceRollResult DiceRollEntry::roll(bool signOnPositive) const
       return DiceRollResult("",0);
     else
     {
-      QString text = signString(signOnPositive)+QString::number(std::abs(value_));
+      QString text = signString(signOnPositive)+QString::number(std::abs(value_))+nameString();
       return DiceRollResult(text,value_);
     }
   }
