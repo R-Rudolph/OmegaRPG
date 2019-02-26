@@ -45,9 +45,9 @@ namespace orpg
       else
         ts << idPlayerMap[to];
       ts << ") ";
-      writeLineEnding();
     }
     ts << "<font color=\""+message.color()+"\">" << escapeString(message.text()) << "</font>";
+    writeLineEnding();
   }
 
   void OpenRpgLogger::digestMessage_player(const PlayerMessage &message)
