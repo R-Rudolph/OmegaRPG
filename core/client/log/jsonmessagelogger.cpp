@@ -193,6 +193,8 @@ namespace orpg
       roomUidMap.remove(currentUid);
       file.remove();
     }
+    file.setFileName("");
+    currentUid = QString();
     chatMessageCount = 0;
     idNameMap.clear();
   }
