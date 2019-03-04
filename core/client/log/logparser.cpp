@@ -7,6 +7,7 @@
 #include "elements/loginfoelement.h"
 
 #include<QJsonArray>
+#include<QDebug>
 
 namespace orpg
 {
@@ -24,7 +25,7 @@ namespace orpg
                                                                               text);
   }
 
-  void LogParser::appendToMap(const QString& key, const QString& value, QMap<QString, QString>& map)
+  void LogParser::appendToMap(const ChannelName& key, const QString& value, QMap<ChannelName, QString>& map)
   {
     if(map.contains(key))
       map[key] += value;
@@ -51,7 +52,7 @@ namespace orpg
     return raw.arg(element.getTime().toString("hh:mm"), //time
                    element.getFrom().isEmpty() ? "" : QString("(%1) ").arg(element.getFrom()), //id
                    element.getName(), //name
-                   explicitTo ? QString("<i>(to %1)</i>").arg(getName(element.getTo())) : "", //'to' part
+                   explicitTo ? QString("<i>(to %1)</i> ").arg(getName(element.getTo())) : "", //'to' part
                    element.getColor(), //color
                    element.getText() //text
                    );
@@ -73,9 +74,9 @@ namespace orpg
     */
   }
 
-  QMap<QString, QString> LogParser::getChannels()
+  QMap<ChannelName, QString> LogParser::getChannels()
   {
-    QMap<QString,QString> result;
+    QMap<ChannelName,QString> result;
     QMap<QString,QString> currentIdNameMap;
     for(int i=0;i<elements.size();i++)
     {
@@ -101,16 +102,11 @@ namespace orpg
           case LogElement::Chat:
           {
             const LogChatElement* subelement = element.chatElement();
-            QString channel = subelement->getTo();
-            if(channel==info.getViewerID())
-              channel = subelement->getFrom();
-            if(channel.isEmpty())
-
-              channel = allString;
+            ChannelName channel(subelement->getFrom(),subelement->getTo());
             appendToMap(channel,
                         chatTextHtml(*subelement),
                         result);
-            if(channel==allString)
+            if(channel.isAll())
             {
               appendToMap(mixedString,
                           chatTextHtml(*subelement),
@@ -194,7 +190,7 @@ namespace orpg
 
   QList<QPair<QString, QString> > LogParser::getHtmlLogByChannels()
   {
-    QMap<QString,QString> channels = getChannels();
+    QMap<ChannelName,QString> channels = getChannels();
     QList< QPair<QString, QString> > result;
     QString allChannel = channels[allString];
     QString dmChannel = channels[gmString];
@@ -208,7 +204,8 @@ namespace orpg
       result.append(QPair<QString, QString>(gmChannelString,dmChannel));
     for(auto i = channels.begin();i!=channels.end();++i)
     {
-      QString name = QString("(%1) %2").arg(i.key(),idNameMap.value(i.key()));
+      QString name = i.key().name(idNameMap);
+      //QString name = QString("(%1) %2").arg(i.key(),idNameMap.value(i.key()));
       result.append(QPair<QString, QString>(name,i.value()));
     }
     if(mixedChannel.size()>0)
