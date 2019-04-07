@@ -58,7 +58,7 @@ namespace orpg
     PlayerRole role = msg.role();
     bool ok;
     NetworkPlayerHandler* targetPlayer = getPlayer(id.toInt(&ok));
-    if(!ok || (targetPlayer==NULL))
+    if(!ok || (targetPlayer==nullptr))
       return;
     quint32 room = targetPlayer->getRoom();
     if(room==msg.room().toUInt(&ok))
@@ -121,7 +121,7 @@ namespace orpg
     if(!ok)
       return;
     NetworkPlayerHandler* kickedPlayer = getPlayer(id);
-    if(kickedPlayer==NULL)
+    if(kickedPlayer==nullptr)
       return;
     if(kickedPlayer->room!=handler.room)
       return;
@@ -271,7 +271,7 @@ namespace orpg
       if(nph->id == id)
         return nph;
     }
-    return NULL;
+    return nullptr;
   }
 
   NetworkServer::NetworkServer(QObject *parent, const ServerSettings& settings) : QObject(parent)

@@ -55,8 +55,8 @@ SslHelper::GenerationError SslHelper::generateCredentials(QSslCertificate& certi
                                                           long validUntil)
 {
   //https://dev.to/ecnepsnai/pragmatically-generating-a-self-signed-certificate-and-private-key-usingopenssl
-  OPENSSL_init_ssl(0, NULL);
-  OPENSSL_init_crypto(0, NULL);
+  OPENSSL_init_ssl(0, nullptr);
+  OPENSSL_init_crypto(0, nullptr);
 
   X509 * cert;
   EVP_PKEY* pkey = getEcdsaKey();
@@ -108,7 +108,7 @@ SslHelper::GenerationError SslHelper::generateCredentials(QSslCertificate& certi
     }
     char* buffer = nullptr;
     long bufferSize = BIO_get_mem_data(bio, &buffer);
-    if(buffer==NULL)
+    if(buffer==nullptr)
     {
       EVP_PKEY_free(pkey);
       X509_free(cert);
@@ -137,7 +137,7 @@ SslHelper::GenerationError SslHelper::generateCredentials(QSslCertificate& certi
     }
     char* buffer = nullptr;
     long bufferSize = BIO_get_mem_data(bio, &buffer);
-    if(buffer==NULL)
+    if(buffer==nullptr)
     {
       X509_free(cert);
       BIO_free_all(bio);
