@@ -3,7 +3,7 @@
 
 namespace orpg
 {
-  Settings* Settings::settings = NULL;
+  Settings* Settings::settings = nullptr;
 
   QJsonObject Settings::toJson() const
   {
@@ -255,7 +255,7 @@ namespace orpg
 
   Settings *Settings::get()
   {
-    if(settings==NULL)
+    if(settings==nullptr)
     {
       settings = new Settings(Global::settingsFilepath());
       connect(settings,&orpg::Settings::nightModeWorkaroundChanged,NightModeController::get(),&NightModeController::setNightModeWorkaround);

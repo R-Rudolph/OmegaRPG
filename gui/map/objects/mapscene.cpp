@@ -576,7 +576,7 @@ void MapScene::clearToolPreview()
   {
     this->removeItem(toolPreview);
     delete toolPreview;
-    toolPreview = NULL;
+    toolPreview = nullptr;
   }
 }
 
@@ -605,7 +605,7 @@ void MapScene::clearMiniaturePreview()
     ih.removeGraphicsItem(miniaturePreview);
     removeItem(miniaturePreview);
     delete miniaturePreview;
-    miniaturePreview = NULL;
+    miniaturePreview = nullptr;
   }
 }
 
@@ -671,7 +671,7 @@ QGraphicsTextItem *MapScene::getTextItem(QPointF point)
 {
   if(fogBlock(point))
     return nullptr;
-  QGraphicsTextItem* tItem = NULL;
+  QGraphicsTextItem* tItem = nullptr;
   QList<QGraphicsItem*> itemsAtPos = items(point);
   foreach(QGraphicsItem* item, itemsAtPos)
   {
@@ -783,7 +783,7 @@ MapScene::MapScene(QObject *parent) : QGraphicsScene(parent)
   selectedTool = TOOL_PENCIL;
   drawing = false;
   snapToGrid = 4.0;
-  toolPreview = NULL;
+  toolPreview = nullptr;
   gridSize = 25.0;
   distanceThreshold = gridSize/4;
 
@@ -802,7 +802,7 @@ MapScene::MapScene(QObject *parent) : QGraphicsScene(parent)
   this->addItem(minis->getGroupHighest());
   this->addItem(minis->getGroupNames());
 
-  miniaturePreview = NULL;
+  miniaturePreview = nullptr;
   miniature = MapMiniatureResource();
   measureLine = nullptr;
   measureCircle = nullptr;

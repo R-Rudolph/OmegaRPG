@@ -18,7 +18,7 @@ QTreeWidgetItem *KnownCertificatesWindow::getPermItem(const QSslCertificate &cer
     if(it.value()==cert)
       return it.key();
   }
-  return NULL;
+  return nullptr;
 }
 
 QTreeWidgetItem *KnownCertificatesWindow::getTempItem(const QSslCertificate &cert)
@@ -28,7 +28,7 @@ QTreeWidgetItem *KnownCertificatesWindow::getTempItem(const QSslCertificate &cer
     if(it.value()==cert)
       return it.key();
   }
-  return NULL;
+  return nullptr;
 }
 
 void KnownCertificatesWindow::updateCurrentErrors()
@@ -36,7 +36,7 @@ void KnownCertificatesWindow::updateCurrentErrors()
   errorList->clear();
   errorMap.clear();
   QTreeWidgetItem* item = certificateList->currentItem();
-  if(item==NULL)
+  if(item==nullptr)
     return;
   QSslCertificate cert;
   bool found = false;
@@ -218,7 +218,7 @@ void KnownCertificatesWindow::show()
 void KnownCertificatesWindow::certificatesContextMenu(const QPoint &pos)
 {
   QTreeWidgetItem* item = certificateList->itemAt(pos);
-  if(item==NULL || item== permCertItem || item==tempCertItem)
+  if(item==nullptr || item== permCertItem || item==tempCertItem)
     return;
   currentCertItem = item;
   QMenu menu(this);
@@ -231,7 +231,7 @@ void KnownCertificatesWindow::certificatesContextMenu(const QPoint &pos)
 void KnownCertificatesWindow::errorContextMenu(const QPoint &pos)
 {
   QTreeWidgetItem* item = certificateList->itemAt(pos);
-  if(item==NULL)
+  if(item==nullptr)
     return;
   currentCertItem = certificateList->currentItem();
   currentErrorItem = item;
@@ -309,7 +309,7 @@ void KnownCertificatesWindow::permanentExceptionAdded(const QSslError &error)
 {
   permCertErrorMap.insert(error.certificate(),error.error());
   QTreeWidgetItem* item = getPermItem(error.certificate());
-  if(item==NULL)
+  if(item==nullptr)
   {
     item = new QTreeWidgetItem(QStringList{getDescriptiveText(error.certificate())});
     permCertificateMap.insert(item,error.certificate());
@@ -346,7 +346,7 @@ void KnownCertificatesWindow::temporaryExceptionAdded(const QSslError &error)
 {
   tempCertErrorMap.insert(error.certificate(),error.error());
   QTreeWidgetItem* item = getTempItem(error.certificate());
-  if(item==NULL)
+  if(item==nullptr)
   {
     item = new QTreeWidgetItem(QStringList{getDescriptiveText(error.certificate())});
     tempCertificateMap.insert(item,error.certificate());

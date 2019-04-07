@@ -89,7 +89,7 @@ void PlayerList::setPlayers(QVector<Player> players)
 void PlayerList::contextMenu(const QPoint &pos)
 {
   QTreeWidgetItem* item = list->itemAt( pos );
-  if(item==NULL)
+  if(item==nullptr)
     return;
   bool ok;
   selectedPlayer = item->text(0).toUInt(&ok);
