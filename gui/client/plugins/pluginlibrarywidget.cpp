@@ -28,7 +28,7 @@ QList<PluginImportInfo> PluginLibraryWidget::getPluginCandidates(QuaZip& zip) co
     if(fileinfo.name.endsWith("plugin.qml") &&
        (fileinfo.name.count('/')==1))
     {
-      candidateDirs.append(name.chopped(name.size()-name.lastIndexOf('/')));
+      candidateDirs.append(name.left(name.lastIndexOf('/')));
     }
   }
   foreach(QString candidate, candidateDirs)
@@ -194,7 +194,7 @@ void PluginLibraryWidget::importPluginFile(const QStringList& plugins, QuaZip& z
            filename.contains('/'))
         {
           int last = filename.lastIndexOf('/');
-          dirs.insert(filename.chopped(filename.size()-last));
+          dirs.insert(filename.left(last));
         }
       }
       foreach(const QString& dirname, dirs)
