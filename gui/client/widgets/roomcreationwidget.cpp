@@ -1,5 +1,9 @@
 #include "roomcreationwidget.h"
+#if QT_VERSION >= 0x051000
 #include<QRandomGenerator>
+#else
+#include<QtGlobal>
+#endif
 
 QString RoomCreationWidget::randPass(int length) const
 {
@@ -7,6 +11,12 @@ QString RoomCreationWidget::randPass(int length) const
   QString pass;
   for(int i=0;i<length;i++)
   {
+    int value;
+    #if QT_VERSION >= 0x051000
+    value = QRandomGenerator::global()->generate();
+    #else
+    value = qrand();
+    #endif
     pass.append(possibleCharacters.at(QRandomGenerator::global()->generate()%possibleCharacters.length()));
   }
   return pass;
