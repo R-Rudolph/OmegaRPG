@@ -17,7 +17,7 @@ QString RoomCreationWidget::randPass(int length) const
     #else
     value = qrand();
     #endif
-    pass.append(possibleCharacters.at(QRandomGenerator::global()->generate()%possibleCharacters.length()));
+    pass.append(possibleCharacters.at(value%possibleCharacters.length()));
   }
   return pass;
 }
