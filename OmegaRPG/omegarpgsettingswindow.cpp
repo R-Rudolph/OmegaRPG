@@ -118,7 +118,7 @@ OmegaRpgSettingsWindow::OmegaRpgSettingsWindow(QWidget *parent) : NightModeOverl
   typingStoppedTime->setMaximum(1000000);
   heartbeatTime->setMaximum(1000000);
   //
-  networkProxySelection_ = new qt_utils::QNetworkProxyWidget({QNetworkProxy::NoProxy,QNetworkProxy::DefaultProxy,QNetworkProxy::Socks5Proxy,QNetworkProxy::HttpCachingProxy},this);
+  networkProxySelection_ = new qt_utils::QNetworkProxyWidget({QNetworkProxy::NoProxy,QNetworkProxy::DefaultProxy,QNetworkProxy::Socks5Proxy},this);
   //performance
   imageResolutionBox = new QSpinBox();
   imageResolutionBox->setSuffix(" MPixel");
