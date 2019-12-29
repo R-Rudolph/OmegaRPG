@@ -28,7 +28,7 @@ QJsonObject MiniatureMenuWidget::getJson(QTreeWidgetItem *item)
 
 QTreeWidgetItem *MiniatureMenuWidget::getItemFromJson(const QJsonObject& json)
 {
-  QTreeWidgetItem* item = NULL;
+  QTreeWidgetItem* item = nullptr;
   if(json["type"] == "miniature")
   {
     MapMiniatureResource resource = MapMiniatureResource(json["data"].toObject());
@@ -193,8 +193,8 @@ QTreeWidgetItem *MiniatureMenuWidget::getFolderItem(const QString &name)
 
 QTreeWidgetItem *MiniatureMenuWidget::getFolder(QTreeWidgetItem *item)
 {
-  if(item==NULL)
-    return NULL;
+  if(item==nullptr)
+    return nullptr;
   if(isMiniature(item))
     return item->parent();
   return item;
@@ -202,7 +202,7 @@ QTreeWidgetItem *MiniatureMenuWidget::getFolder(QTreeWidgetItem *item)
 
 bool MiniatureMenuWidget::isMiniature(const QTreeWidgetItem *item) const
 {
-  if(item==NULL)
+  if(item==nullptr)
     return false;
   return item->text(1).toInt();
 }
@@ -257,6 +257,7 @@ void MiniatureMenuWidget::itemSelected(QTreeWidgetItem* current,QTreeWidgetItem*
   if(isMiniature(current))
   {
     miniature = getResource(current);
+    miniature.setDirection(-1);
     emit previewData(miniature);
   }
 }
@@ -264,7 +265,7 @@ void MiniatureMenuWidget::itemSelected(QTreeWidgetItem* current,QTreeWidgetItem*
 void MiniatureMenuWidget::miniatureImport(const MapMiniatureResource& miniature)
 {
   QTreeWidgetItem* folder = getFolder(tree->currentItem());
-  if(folder==NULL)
+  if(folder==nullptr)
   {
     for(int i=0;i<tree->topLevelItemCount();i++)
     {
@@ -274,7 +275,7 @@ void MiniatureMenuWidget::miniatureImport(const MapMiniatureResource& miniature)
         break;
       }
     }
-    if(folder==NULL)
+    if(folder==nullptr)
     {
       folder = getFolderItem("Import");
       tree->addTopLevelItem(folder);
@@ -307,7 +308,7 @@ void MiniatureMenuWidget::addMini(QTreeWidgetItem *item)
   if(dialog.exec())
   {
     QTreeWidgetItem* newItem = getMiniatureItem(dialog.getMiniature(),dialog.getComment());
-    if(folder!=NULL)
+    if(folder!=nullptr)
     {
       folder->addChild(newItem);
       folder->setExpanded(true);
@@ -330,7 +331,7 @@ void MiniatureMenuWidget::addFolder(QTreeWidgetItem *item)
   if(ok)
   {
     QTreeWidgetItem* newFolder = getFolderItem(name);
-    if(folder==NULL)
+    if(folder==nullptr)
     {
       tree->addTopLevelItem(newFolder);
     }
@@ -366,7 +367,7 @@ void MiniatureMenuWidget::contextMenu(QPoint point)
   menu.addAction(GlobalGUI::iconAdd(),"Add Miniature",this,&MiniatureMenuWidget::addMiniAction);
   menu.addAction(GlobalGUI::freedesktopNewFolder(),"Add Folder",this,&MiniatureMenuWidget::addFolderAction);
   menu.addSeparator();
-  if(item!=NULL)
+  if(item!=nullptr)
   {
     menu.addSeparator();
     if(isMiniature(item))
@@ -392,7 +393,7 @@ void MiniatureMenuWidget::contextMenu(QPoint point)
 
 void MiniatureMenuWidget::doubleClick(QTreeWidgetItem* item, int)
 {
-  if(item!=NULL)
+  if(item!=nullptr)
   {
     contextMenuItem = item;
     if(isMiniature(item))
@@ -474,7 +475,7 @@ void MiniatureMenuWidget::cloneItem()
     comment += ", Copy";
   setData(clonedItem,getResource(clonedItem),comment);
   int index;
-  if(contextMenuItem->parent()==NULL)
+  if(contextMenuItem->parent()==nullptr)
   {
     index = tree->indexOfTopLevelItem(contextMenuItem);
     tree->insertTopLevelItem(index+1,clonedItem);

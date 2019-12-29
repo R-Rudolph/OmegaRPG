@@ -89,8 +89,7 @@ QString Global::historyFilepath()
 
 QStringList Global::getStaticMetaServerUrls()
 {
-  return QStringList({"https://night.elnath.uberspace.de/OmegaRPG"});
-  //return "omegarpg.vastserve.com";
+  return QStringList({"https://n8zone.de/OmegaRPG"});
 }
 
 QString Global::serverSettingsFilepath()

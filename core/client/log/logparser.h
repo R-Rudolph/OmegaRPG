@@ -8,11 +8,19 @@
 #include "elements/loginfoelement.h"
 #include "elements/logelement.h"
 
+#include "ChannelName.h"
+
 namespace orpg
 {
   class LogParser
   {
   public:
+    static const QString allString;
+    static const QString gmString;
+    static const QString mixedString;
+    static const QString mainChannelString;
+    static const QString gmChannelString;
+    static const QString mixedChannelString;
     enum Error
     {
       Unknown,
@@ -22,12 +30,6 @@ namespace orpg
       MalformedLogfileError
     };
   protected:
-    static const QString allString;
-    static const QString gmString;
-    static const QString mixedString;
-    static const QString mainChannelString;
-    static const QString gmChannelString;
-    static const QString mixedChannelString;
 
     //content info
     QMultiMap<QString,QString> idNameMap;
@@ -40,13 +42,13 @@ namespace orpg
     Error error;
 
     //utility functions
-    void appendToMap(const QString& key, const QString& value, QMap<QString,QString>& map);
+    void appendToMap(const ChannelName& key, const QString& value, QMap<ChannelName,QString>& map);
     QString getName(const QString& id);
 
     //html output functions
     QString chatTextHtml(const LogChatElement& element, bool explicitTo=false);
     QString infoTextHtml(const QDateTime& time, const QString& text);
-    QMap<QString,QString> getChannels();
+    QMap<ChannelName,QString> getChannels();
 
     LogParser();
   public:

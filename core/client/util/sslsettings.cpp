@@ -1,6 +1,6 @@
 #include "sslsettings.h"
 
-SslSettings* SslSettings::singleton = NULL;
+SslSettings* SslSettings::singleton = nullptr;
 
 QSet<QSslError> SslSettings::getPermanentExceptions() const
 {
@@ -145,7 +145,7 @@ bool SslSettings::isInExceptions(const QSslError &error)
 
 SslSettings *SslSettings::get()
 {
-  if(SslSettings::singleton==NULL)
+  if(SslSettings::singleton==nullptr)
     SslSettings::singleton = new SslSettings();
   return SslSettings::singleton;
 }

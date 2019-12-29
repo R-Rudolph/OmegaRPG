@@ -44,7 +44,8 @@ SOURCES += \
     $$PWD/alias/aliassheetplugin.cpp \
     $$PWD/util/diceroll.cpp \
     $$PWD/util/dicerollentry.cpp \
-    $$PWD/util/dicerollresult.cpp
+    $$PWD/util/dicerollresult.cpp \
+    $$PWD/log/ChannelName.cpp
 
 
 HEADERS += \
@@ -91,4 +92,5 @@ HEADERS += \
     $$PWD/alias/aliassheetplugin.h \
     $$PWD/util/diceroll.h \
     $$PWD/util/dicerollentry.h \
-    $$PWD/util/dicerollresult.h
+    $$PWD/util/dicerollresult.h \
+    $$PWD/log/ChannelName.h

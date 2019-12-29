@@ -13,7 +13,7 @@ namespace orpg
   {
     QStringList versions = version.split(seperator);
     QList<uint> versionInteger;
-    bool ok;
+    bool ok = false;
     foreach(const QString& string, versions)
     {
       versionInteger.append(string.toUInt(&ok));

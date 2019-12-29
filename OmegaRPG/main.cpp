@@ -12,6 +12,8 @@
 #include "core/client/log/htmllogparser.h"
 #include "core/client/log/jsonlogparser.h"
 
+#include<sys/time.h>
+
 void importOldLogs()
 {
   QDir dir(orpg::Settings::get()->getLogLocation());
@@ -40,6 +42,10 @@ void importOldLogs()
 
 int main(int argc, char *argv[])
 {
+  struct timeval time;
+  gettimeofday(&time,NULL);
+  qsrand((time.tv_sec * 1000) + (time.tv_usec / 1000));
+
   QApplication app(argc, argv);
   Global::createEnvironment();
   GlobalGUI::initIcons(app);

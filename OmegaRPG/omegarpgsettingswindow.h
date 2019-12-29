@@ -5,6 +5,7 @@
 #include <QComboBox>
 #include "core/client/alias/alias.h"
 #include "widgets/nightmodeoverlay.h"
+#include "qt_utils/QNetworkProxyWidget"
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -71,10 +72,12 @@ class OmegaRpgSettingsWindow : public NightModeOverlay
   QVector<QLineEdit*> macroEdits;
   //performance
   QSpinBox* imageResolutionBox;
+  //network proxy
+  qt_utils::QNetworkProxyWidget* networkProxySelection_;
 
   void confirmSettings();
 public:
-  explicit OmegaRpgSettingsWindow(QWidget *parent = 0);
+  explicit OmegaRpgSettingsWindow(QWidget *parent = nullptr);
   bool restoreGeometry(const QByteArray &geometry);
 protected:
   void closeEvent(QCloseEvent *event);

@@ -10,7 +10,6 @@
 #include "core/multi/roomresources/initiativeresource.h"
 #include "widgets/colorselectbutton.h"
 #include "core/multi/util/global.h"
-#include<QRandomGenerator>
 #include "core/client/util/dice.h"
 
 InitiativeDialog::InitiativeDialog(QWidget *parent) : NightModeDialog(parent)

@@ -1,7 +1,6 @@
 #include "aliassheetdicewidget.h"
 #include "core/client/alias/aliassheetdice.h"
 #include <QTextStream>
-#include<QRandomGenerator>
 #include "core/client/util/dice.h"
 
 void AliasSheetDiceWidget::clearList()
