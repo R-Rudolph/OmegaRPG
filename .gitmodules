@@ -7,3 +7,6 @@
 [submodule "3rdParty/quazip"]
 	path = 3rdParty/quazip
 	url = https://github.com/stachenov/quazip
+[submodule "3rdParty/QtUtils"]
+	path = 3rdParty/QtUtils
+	url = https://github.com/R-Rudolph/QtUtils

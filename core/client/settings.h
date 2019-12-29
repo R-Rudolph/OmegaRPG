@@ -70,6 +70,7 @@ namespace orpg
     int imageResolutionLimit;
 
     bool showPreviousMiniaturePosLine;
+    QJsonObject networkProxyData_;
 
     void setTimings(int typing, int stoppedTyping, int heartbeat);
     void setStatusTexts(const QString& typing, const QString& stoppedTyping, const QString& idle);
@@ -94,6 +95,9 @@ namespace orpg
     LoadError getLoadError() const;
 
     qint64 getCacheSize() const;
+
+    QJsonObject networkProxyData() const;
+    void setNetworkProxyData(const QJsonObject& networkProxyData);
 
   signals:
     void aliasChanged();
