@@ -34,7 +34,7 @@ void MetaServerClient::httpNofityFinished(QNetworkReply *reply)
     emit statusChanged(statusMap);
     emit notifyFailed(error);
   }
-  delete reply;
+  reply->deleteLater();
 }
 
 void MetaServerClient::httpGetFinished(QNetworkReply *reply)
@@ -66,7 +66,7 @@ void MetaServerClient::httpGetFinished(QNetworkReply *reply)
     QtIO::err << "Get Error:" << reply->errorString() << "\n";
     emit getFailed(error,reply->errorString());
   }
-  delete reply;
+  reply->deleteLater();
 }
 
 void MetaServerClient::notifyHttpMetaServer(const QString &serverName, const QString &serverUrl, int port, int players)
