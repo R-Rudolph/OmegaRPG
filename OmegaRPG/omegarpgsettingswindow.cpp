@@ -43,6 +43,10 @@ void OmegaRpgSettingsWindow::confirmSettings()
   orpg::Settings::get()->showPreviousMiniaturePosLine = showPreviousMiniaturePosLineBox->isChecked();
   orpg::Settings::get()->distanceMeasure = DistanceMeasure::fromInt(distanceMeasureBox->currentIndex());
 
+  networkProxySelection_->save();
+  orpg::Settings::get()->setNetworkProxyData(networkProxySelection_->getSettings().toJson());
+  networkProxySelection_->getSettings().setApplicationProxy();
+
   orpg::Settings::get()->notifyAliasChange();
 }
 
@@ -60,8 +64,8 @@ OmegaRpgSettingsWindow::OmegaRpgSettingsWindow(QWidget *parent) : NightModeOverl
   mainDivide->addWidget(tabs);
   mainDivide->addLayout(hBoxButtons);
 
-  buttonOk = new QPushButton("Ok",0);
-  buttonCancel = new QPushButton("Cancel",0);
+  buttonOk = new QPushButton("Ok");
+  buttonCancel = new QPushButton("Cancel");
   //data field objects
   //customize
   aliasEdit = new AliasEditWidget(this);
@@ -113,6 +117,8 @@ OmegaRpgSettingsWindow::OmegaRpgSettingsWindow(QWidget *parent) : NightModeOverl
   typingTime->setMaximum(1000000);
   typingStoppedTime->setMaximum(1000000);
   heartbeatTime->setMaximum(1000000);
+  //
+  networkProxySelection_ = new qt_utils::QNetworkProxyWidget({QNetworkProxy::NoProxy,QNetworkProxy::DefaultProxy,QNetworkProxy::Socks5Proxy},this);
   //performance
   imageResolutionBox = new QSpinBox();
   imageResolutionBox->setSuffix(" MPixel");
@@ -152,6 +158,8 @@ OmegaRpgSettingsWindow::OmegaRpgSettingsWindow(QWidget *parent) : NightModeOverl
     macroEdits.push_back(new QLineEdit());
     tabs->addWidget("Macros/F"+QString::number(i+1)+"-Macro",macroEdits[i]);
   }
+  //network proxy
+  tabs->addWidget("Network Proxy/proxy",networkProxySelection_,LabelPolicy::None);
   //performance
   tabs->addWidget("Performance/Max. Image Size",imageResolutionBox,LabelPolicy::Show);
   //system
@@ -247,7 +255,7 @@ void OmegaRpgSettingsWindow::setSettings(const orpg::Settings *settings)
   distanceMeasureBox->setCurrentIndex(settings->distanceMeasure.toInt());
 
   suppressSound = true;
-  volumeSlider->setValue(settings->volume);
+  volumeSlider->setValue(static_cast<int>(settings->volume));
   suppressSound = false;
 
   serverHistoryBox->setValue(settings->numServerHistory);
@@ -258,7 +266,10 @@ void OmegaRpgSettingsWindow::setSettings(const orpg::Settings *settings)
     macroEdits[i]->setText(settings->macro[i]);
   }
 
+  //performance
   imageResolutionBox->setValue(settings->imageResolutionLimit);
+  //network proxy
+  networkProxySelection_->loadJson(settings->networkProxyData());
 }
 
 void OmegaRpgSettingsWindow::volumeChanged(int)

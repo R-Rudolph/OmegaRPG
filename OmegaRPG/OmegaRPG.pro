@@ -99,6 +99,7 @@ include(../util/util.pri)
 include(../3rdParty/Qt-TabFormWidget/QTabFormWidget.pri)
 DEFINES += QUAZIP_STATIC
 include(../3rdParty/quazip/quazip.pri)
+include(../3rdParty/QtUtils/QNetworkProxyWidget.pri)
 
 DISTFILES += \
     QmlImports.qml

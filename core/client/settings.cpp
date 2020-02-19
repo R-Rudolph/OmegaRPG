@@ -1,6 +1,6 @@
 #include "settings.h"
 #include "objects/nightmode.h"
-
+#include <QDebug>
 namespace orpg
 {
   Settings* Settings::settings = nullptr;
@@ -31,6 +31,8 @@ namespace orpg
     json.insert("distanceMeasure",distanceMeasure.toInt());
     for(int i=0;i<13;i++)
       json.insert("f"+QString::number(i+1),macro[i]);
+    json.insert("network_proxy",networkProxyData());
+    qDebug() << "toJson" << networkProxyData();
     return json;
   }
 
@@ -71,15 +73,26 @@ namespace orpg
     load(filename);
   }
   
+  QJsonObject Settings::networkProxyData() const
+  {
+      return networkProxyData_;
+  }
+  
+  void Settings::setNetworkProxyData(const QJsonObject& networkProxyData)
+  {
+      qDebug() << "setting..." << networkProxyData;
+      networkProxyData_ = networkProxyData;
+  }
+
   QString Settings::getSoundfilePath() const
   {
     if(soundFilepath.isEmpty())
     {
-      return "qrc:sounds/quack.mp3";
+        return "qrc:sounds/quack.mp3";
     }
     else
     {
-      return "file:"+soundFilepath;
+        return "file:"+soundFilepath;
     }
   }
   
@@ -335,6 +348,7 @@ namespace orpg
     for(int i=0;i<13;i++)
       setIfString(arr["f"+QString::number(i+1)],macro[i]);
     imageResolutionLimit = arr["imageResolutionLimit"].toInt();
+    networkProxyData_ = arr["network_proxy"].toObject();
 
     lastLoadError = LOAD_OK;
     return true;
