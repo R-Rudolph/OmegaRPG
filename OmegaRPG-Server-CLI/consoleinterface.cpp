@@ -124,17 +124,6 @@ void ConsoleInterface::settingsInterface()
         break;
       case 8:
       {
-        orpg::ServerSettings::CredentialLoadingError error = settings->loadCredentials();
-        if(error != orpg::ServerSettings::EverythingOk)
-        {
-          QSslCertificate cert;
-          SslHelper::generateCredentials(cert,settings->privateKey,"DE","","nachtzone.duckdns.org","","","");
-          SslHelper::saveCertificate(cert,settings->getCertificateFilepath());
-          SslHelper::saveKey(settings->privateKey,settings->getPrivateKeyFilepath());
-          QList<QSslCertificate> certChain;
-          certChain.prepend(cert);
-          settings->certificateChain = certChain;
-        }
         loop = false;
         break;
       }
@@ -582,11 +571,26 @@ ConsoleInterface::ConsoleInterface(QObject *parent)
 bool ConsoleInterface::init(bool forceConfig)
 {
   bool configured = false;
+  // set settings
   if(!settings->load() || forceConfig)
   {
     configured = true;
     settingsInterface();
   }
+  // load credentials
+  orpg::ServerSettings::CredentialLoadingError error = settings->loadCredentials();
+  if(error != orpg::ServerSettings::EverythingOk)
+  {
+    out << "Error: Could not load server certificate/private key. Generating temporary credentials instead." << endl;
+    QSslCertificate cert;
+    QSslKey key;
+    SslHelper::generateTemporaryCredentials(cert,key);
+    settings->privateKey = key;
+    QList<QSslCertificate> certList;
+    certList.prepend(cert);
+    settings->certificateChain = certList;
+  }
+  // launch server
   if(server->openServer())
   {
     out << "Server lauched successfully." << endl;
