@@ -42,7 +42,7 @@ namespace orpg
     num = endianSwitch(num);
     char* ptr = (char*) &num;
     QByteArray arr;
-    arr.reserve(4);
+    arr.resize(4);
     for(int i=0;i<4;i++)
       arr[i]=ptr[i];
     return arr;
@@ -225,6 +225,6 @@ namespace orpg
 
   void NetworkClient::exceptionsChanged()
   {
-    socket->ignoreSslErrors(SslSettings::get()->allExceptions().toList());
+    socket->ignoreSslErrors(SslSettings::get()->allExceptions().values());
   }
 }
