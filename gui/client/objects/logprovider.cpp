@@ -51,7 +51,7 @@ void LogProvider::refresh()
       allLogs.append(log);
     }
   }
-  qSort(allLogs.begin(),allLogs.end(),LogProvider::logOrder);
+  std::sort(allLogs.begin(),allLogs.end(),LogProvider::logOrder);
   reevaluateAllFilters();
   emit finished();
 }

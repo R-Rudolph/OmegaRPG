@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
   QCoreApplication a(argc, argv);
   Global::createEnvironment();
-  QSet<QString> args = a.arguments().toSet();
+  QSet<QString> args(a.arguments().begin(),a.arguments().end()) ;
   ConsoleInterface cli;
   int retcode = -1;
   if(args.contains("-h") || args.contains("--help"))

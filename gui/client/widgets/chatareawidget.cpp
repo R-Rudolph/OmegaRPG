@@ -286,7 +286,7 @@ void ChatAreaWidget::setFont(const QFont &font)
   {
     this->font = font;
     chatEdit->setFont(font);
-    foreach(QTextBrowser* browser, chatBrowserMapReverse.keys().toSet())
+    foreach(QTextBrowser* browser, chatBrowserMapReverse.keys())
     {
       browser->setFont(font);
     }
