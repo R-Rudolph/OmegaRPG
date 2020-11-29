@@ -6,7 +6,7 @@
 # Maintainer: Your Name <youremail@domain.com>
 pkgname=omegarpg
 pkgver=f5c5d19
-pkgrel=1
+pkgrel=2
 epoch=
 pkgdesc=""
 arch=('x86_64' 'i686' 'armv7h')
