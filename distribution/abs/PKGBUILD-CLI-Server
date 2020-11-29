@@ -51,7 +51,7 @@ package() {
 	mkdir -p $pkgdir/usr/bin
 	mv $srcdir/build/OmegaRPG-Server-CLI $pkgdir/usr/bin
 	mkdir -p $pkgdir/usr/share/OmegaRPG
-	cp $srcdir/OmegaRPG/icons/omegarpg.png $pkgdir/usr/share/OmegaRPG/omegarpg.png
+	cp $srcdir/OmegaRPG/icons/omegarpg.png $pkgdir/usr/share/pixmaps/omegarpg.png
 	mkdir -p $pkgdir/usr/share/applications
 	cp $srcdir/OmegaRPG/distribution/OmegaRPG.desktop $pkgdir/usr/share/applications/OmegaRPG.desktop
 }

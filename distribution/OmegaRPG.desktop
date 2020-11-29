@@ -7,7 +7,7 @@ Exec=OmegaRPG
 StartupNotify=true
 Terminal=false
 Type=Application
-Icon=/usr/share/OmegaRPG/omegarpg.png
+Icon=omegarpg
 Categories=Games;Internet;
 
 Name[en_GB]=OmegaRPG
