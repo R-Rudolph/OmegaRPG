@@ -10,7 +10,11 @@ int main(int argc, char *argv[])
   QCoreApplication a(argc, argv);
   Global::createEnvironment();
   #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-  QSet<QString> args(a.arguments().begin(),a.arguments().end());
+  QSet<QString> args;
+  {
+      const auto argsVector = a.arguments().toVector();
+      args = QSet<QString>(argsVector.begin(), argsVector.end());
+  }
   #else
   QSet<QString> args = a.arguments().toSet();
   #endif
