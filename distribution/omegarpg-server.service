@@ -1,0 +1,8 @@
+[Unit]
+Description=Server for the OmegaRPG Virtual Tabletop application
+
+[Service]
+ExecStart=/usr/bin/OmegaRPG-Server-CLI
+
+[Install]
+WantedBy=multi-user.target

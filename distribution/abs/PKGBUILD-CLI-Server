@@ -54,5 +54,7 @@ package() {
 	cp $srcdir/OmegaRPG/icons/omegarpg.png $pkgdir/usr/share/pixmaps/omegarpg.png
 	mkdir -p $pkgdir/usr/share/applications
 	cp $srcdir/OmegaRPG/distribution/OmegaRPG.desktop $pkgdir/usr/share/applications/OmegaRPG.desktop
+	mkdir -p $pkgdir/usr/lib/systemd/system
+	cp $srcdir/OmegaRPG/distribution/omegarpg-server.service $pkgdir/usr/lib/systemd/system/omegarpg-server.service
 }
 
