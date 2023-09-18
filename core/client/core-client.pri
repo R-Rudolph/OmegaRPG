@@ -10,6 +10,7 @@ SOURCES += \
     $$PWD/serversource/metaserversource.cpp \
     $$PWD/clientcore.cpp \
     $$PWD/networkclient.cpp \
+    $$PWD/util/chatcommand.cpp \
     $$PWD/util/distancemeasure.cpp \
     $$PWD/util/sslsettings.cpp \
     $$PWD/util/textformat.cpp \
@@ -58,6 +59,7 @@ HEADERS += \
     $$PWD/serversource/metaserversource.h \
     $$PWD/clientcore.h \
     $$PWD/networkclient.h \
+    $$PWD/util/chatcommand.h \
     $$PWD/util/distancemeasure.h \
     $$PWD/util/sslsettings.h \
     $$PWD/util/textformat.h \

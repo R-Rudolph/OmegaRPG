@@ -3,6 +3,8 @@
 #include "widgets/squarepushbutton.h"
 #include <QtGlobal>
 #include "core/client/util/dice.h"
+#include "core/client/util/diceroll.h"
+#include "core/client/util/chatcommand.h"
 
 QString ChatAreaWidget::getTo()
 {
@@ -392,8 +394,22 @@ void ChatAreaWidget::updateAlias()
 
 void ChatAreaWidget::chatPrivate(QString text)
 {
-  if(!text.isEmpty())
-    emit chat(text,getTo());
+  if(!text.isEmpty()) {
+    if (auto chatCommand = ChatCommand::parse(text)) {
+      if(chatCommand->type() == ChatCommandType::DICEROLL) {
+          DiceRoll roll(chatCommand->argumentString());
+          if(roll.valid()) {
+              emit chat(roll.roll(), getTo());
+          } else {
+              printStatusMessage("Invalid roll format invalid.");
+          }
+      } else {
+          printStatusMessage("Unknown command: " + chatCommand->commandString());
+      }
+    } else {
+      emit chat(text, getTo());
+    }
+  }
 }
 
 void ChatAreaWidget::macroKey(int index)

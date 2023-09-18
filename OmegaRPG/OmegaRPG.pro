@@ -4,7 +4,7 @@ include(../version.pri)
 
 RC_FILE = OmegaRPG.rc
 QT += widgets network multimedia xml opengl quickwidgets svg
-CONFIG += c++14
+CONFIG += c++17
 CONFIG += static
 INCLUDEPATH += ..
 # INCLUDEPATH += /usr/include/openssl-1.0/
