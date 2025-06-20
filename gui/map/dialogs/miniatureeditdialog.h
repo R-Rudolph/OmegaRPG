@@ -30,6 +30,8 @@ class MiniatureEditDialog : public NightModeDialog
   QGridLayout* layout;
   //QGridLayout* layout;
   QLineEdit* nameEdit;
+  QLabel* graphicStateSliderLabel;
+  QSlider* graphicStateSlider;
   QComboBox* imageSourceBox;
   ColorSelectButton* colorButton;
   ImageUrlSelection* urlEdit;
@@ -44,6 +46,7 @@ class MiniatureEditDialog : public NightModeDialog
   QComboBox* directionBox;
   QSpinBox* directionSpinBox;
 
+  QVector<QString> urls;
 
   QHBoxLayout* buttonLayout;
   QPushButton* okButton;
@@ -57,6 +60,7 @@ class MiniatureEditDialog : public NightModeDialog
   void addRow(const QString& label, QWidget* widget);
   void addRow(QWidget* widget);
   void addRow(QLayout* layout);
+  void addRow(const QString &label, QLayout *layout);
   void setWidgetHidden(QWidget* widget, bool value);
 
   void setRotation(qreal deg);
@@ -89,6 +93,9 @@ private slots:
   void sourceChanged(int index);
   void rotationBoxChanged(int index);
   void directionBoxChanged(int index);
+  void graphicsSliderChanged(int value);
+  void urlLineEditChanged(const QString& value);
+  void colorChanged(QColor value);
 };
 
 #endif // MINIATUREEDITDIALOG_H

@@ -84,7 +84,7 @@ class MapScene : public QGraphicsScene
   //grid fields
   QSet<QGraphicsItem*> gridItems;
   //Miniature fields
-
+  QMap<QObject*, int> miniatureStateChangeMap;
 
   QVector<QPointF> pointVec;
   QPointF lastPoint;
@@ -208,6 +208,7 @@ private slots:
   void displayMiniErrorMessage();
   void editMapTextSlot();
   void removeMapTextSlot();
+  void updateMiniatureState();
 
   //resource-based slots (Resource -> Map)
   void setLine(QList<int> ids);

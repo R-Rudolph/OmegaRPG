@@ -20,7 +20,6 @@
 #include <QAudioOutput>
 #include <QAudioDecoder>
 #include <QSoundEffect>
-#include <QSound>
 #include <QSettings>
 #include <QGraphicsColorizeEffect>
 

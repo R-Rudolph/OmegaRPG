@@ -1,4 +1,5 @@
 #include "mapminiatureresource.h"
+#include <QJsonArray>
 
 const QString MapMiniatureResource::resourceName = "map-miniature";
 
@@ -12,12 +13,12 @@ void MapMiniatureResource::setName(const QString &value)
   _name = value;
 }
 
-QString MapMiniatureResource::getGraphic() const
+QVector<QString> MapMiniatureResource::getGraphic() const
 {
   return graphic;
 }
 
-void MapMiniatureResource::setGraphic(const QString &value)
+void MapMiniatureResource::setGraphic(const QVector<QString> &value)
 {
   graphic = value;
 }
@@ -94,6 +95,14 @@ void MapMiniatureResource::setVisibility(const Visibility &value)
   visibility = value;
 }
 
+quint32 MapMiniatureResource::getSelectedGraphicsIndex() const {
+  return selectedGraphicsIndex;
+}
+
+void MapMiniatureResource::setSelectedGraphicsIndex(quint32 value) {
+  selectedGraphicsIndex = value;
+}
+
 const QString&MapMiniatureResource::name() const
 {
   return resourceName;
@@ -111,14 +120,15 @@ void MapMiniatureResource::updateValidity()
 }
 
 MapMiniatureResource::MapMiniatureResource(const QString &name,
-                                           const QString &graphic,
+                                           const QVector<QString> &graphic,
                                            const QPointF &pos,
                                            qreal size,
                                            MapMiniatureResource::Layer layer,
                                            MapMiniatureResource::Display display,
                                            qreal rotation,
                                            qreal direction,
-                                           MapMiniatureResource::Visibility visibility)
+                                           MapMiniatureResource::Visibility visibility,
+                                           quint32 selectedGraphicsIndex)
   : Resource()
 {
   this->_name = name;
@@ -130,6 +140,7 @@ MapMiniatureResource::MapMiniatureResource(const QString &name,
   this->rotation = rotation;
   this->direction = direction;
   this->visibility = visibility;
+  this->selectedGraphicsIndex = selectedGraphicsIndex;
   updateValidity();
 }
 
@@ -137,7 +148,16 @@ MapMiniatureResource::MapMiniatureResource(const QJsonObject &data)
   : Resource()
 {
   this->_name = data["name"].toString();
-  this->graphic = data["graphic"].toString();
+  QVector<QString> graphicArray;
+  if (data["graphic"].isString()) {
+    graphicArray = QVector<QString>({data["graphic"].toString()});
+  } else if (data["graphic"].isArray()) {
+      for (const QJsonValue &entry : data["graphic"].toArray()) {
+          graphicArray.push_back(entry.toString());
+      }
+  }
+  this->graphic = graphicArray;
+  this->selectedGraphicsIndex = data["selectedGraphicsIndex"].toInt(0);
   this->pos.rx() = data["x"].toDouble(0.0);
   this->pos.ry() = data["y"].toDouble(0.0);
   this->size = data["size"].toDouble(1);
@@ -153,7 +173,11 @@ QJsonObject MapMiniatureResource::data() const
 {
   QJsonObject data;
   data.insert("name",_name);
-  data.insert("graphic",graphic);
+  QJsonArray graphicsArray;
+  for (const QString &entry : graphic) {
+      graphicsArray.push_back(entry);
+  }
+  data.insert("graphic",graphicsArray);
   data.insert("x",pos.x());
   data.insert("y",pos.y());
   data.insert("size",size);
@@ -162,5 +186,14 @@ QJsonObject MapMiniatureResource::data() const
   data.insert("rotation",rotation);
   data.insert("direction",direction);
   data.insert("vis",(int)visibility);
+  data.insert("selectedGraphicsIndex", (int) selectedGraphicsIndex);
   return data;
+}
+
+QString MapMiniatureResource::getSelectedGraphic() const {
+    if (this->selectedGraphicsIndex < this->graphic.size()) {
+        return this->graphic[selectedGraphicsIndex];
+    } else {
+        return "";
+    }
 }

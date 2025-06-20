@@ -33,7 +33,8 @@ public:
   };
 private:
   QString _name;
-  QString graphic;
+  QVector<QString> graphic;
+  quint32 selectedGraphicsIndex;
   QPointF pos;
   qreal size;
   Layer layer;
@@ -43,20 +44,21 @@ private:
   void updateValidity();
 public:
   MapMiniatureResource(const QString& name="",
-                       const QString& graphic="",
+                       const QVector<QString>& graphic=QVector<QString>(),
                        const QPointF& pos=QPointF(0,0),
                        qreal size=1.0,
                        MapMiniatureResource::Layer layer=LAYER_ABOVELINES,
                        MapMiniatureResource::Display display=DISPLAY_NORMAL,
                        qreal rotation=0.0,
                        qreal direction=-1.0,
-                       Visibility visibility = VISIBILITY_VISIBLE);
+                       Visibility visibility = VISIBILITY_VISIBLE,
+                       quint32 selectedGraphicsIndex=0);
   MapMiniatureResource(const QJsonObject& data);
   virtual QJsonObject data() const;
   QString getName() const;
   void setName(const QString &value);
-  QString getGraphic() const;
-  void setGraphic(const QString &value);
+  QVector<QString> getGraphic() const;
+  void setGraphic(const QVector<QString> &value);
   QPointF getPos() const;
   void setPos(const QPointF &value);
   qreal getSize() const;
@@ -71,6 +73,9 @@ public:
   void setDirection(const qreal &value);
   Visibility getVisibility() const;
   void setVisibility(const Visibility &value);
+  quint32 getSelectedGraphicsIndex() const;
+  void setSelectedGraphicsIndex(quint32 value);
+  QString getSelectedGraphic() const;
   virtual const QString& name() const;
 };
 

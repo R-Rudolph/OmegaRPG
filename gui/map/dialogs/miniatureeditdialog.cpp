@@ -212,7 +212,21 @@ void MiniatureEditDialog::addRow(QWidget *widget)
 
 void MiniatureEditDialog::addRow(QLayout *layout)
 {
-  this->layout->addLayout(layout,this->layout->rowCount(),0,1,2);
+    this->layout->addLayout(layout,this->layout->rowCount(),0,1,2);
+}
+
+void MiniatureEditDialog::addRow(const QString &label, QLayout *layout)
+{
+    this->layout->addLayout(layout,this->layout->rowCount(),0,1,2);
+
+    int row = this->layout->rowCount();
+    if(!label.isEmpty())
+    {
+        QLabel* labelWidget = new QLabel(label);
+        labelMap.insert((QWidget*)layout,labelWidget);
+        this->layout->addWidget(labelWidget,row,0,1,1);
+    }
+    this->layout->addLayout(layout,row,1,1,1);
 }
 
 void MiniatureEditDialog::setWidgetHidden(QWidget *widget, bool value)
@@ -262,8 +276,22 @@ void MiniatureEditDialog::setDirection(qreal deg)
   directionBox->setCurrentIndex(directionBox->count()-1);
 }
 
+void MiniatureEditDialog::graphicsSliderChanged(int value) {
+  this->graphicStateSliderLabel->setText(QString::fromStdString(std::to_string(value+1)));
+  setUrl(urls[value]);
+}
+
+void MiniatureEditDialog::urlLineEditChanged(const QString& value) {
+  this->urls[this->graphicStateSlider->value()] = value;
+}
+
+void MiniatureEditDialog::colorChanged(QColor value) {
+  this->urls[this->graphicStateSlider->value()] = value.name();
+}
+
 MiniatureEditDialog::MiniatureEditDialog(QWidget* parent) : NightModeDialog(parent)
 {
+  urls = QVector<QString>(8);
   layout = new QGridLayout(getCentralWidget());
   nameEdit = new QLineEdit();
   urlEdit  = new ImageUrlSelection(Global::imgurClientID());
@@ -271,6 +299,18 @@ MiniatureEditDialog::MiniatureEditDialog(QWidget* parent) : NightModeDialog(pare
   sizeBox->setMinimum(1.0/4.0);
   sizeBox->setMaximum(1000);
   sizeBox->setSuffix(" Grid Cells");
+  graphicStateSlider = new QSlider(this);
+  quint32 selectedState = 0;
+  graphicStateSlider->setValue(selectedState);
+  graphicStateSlider->setMinimum(0);
+  graphicStateSlider->setMaximum(7);
+  graphicStateSlider->setOrientation(Qt::Horizontal);
+  graphicStateSliderLabel = new QLabel(QString::fromStdString(std::to_string(selectedState+1)), this);
+  QHBoxLayout* graphicStateLayout = new QHBoxLayout(this);
+  QWidget* fuckoff = new QWidget(this);
+  fuckoff->setLayout(graphicStateLayout);
+  graphicStateLayout->addWidget(graphicStateSliderLabel);
+  graphicStateLayout->addWidget(graphicStateSlider);
   imageSourceBox = new QComboBox(this);
   imageSourceBox->addItem("URL");
   imageSourceBox->addItem("Color");
@@ -331,6 +371,7 @@ MiniatureEditDialog::MiniatureEditDialog(QWidget* parent) : NightModeDialog(pare
   buttonLayout->addWidget(cancelButton);
 
   addRow("Name:",nameEdit);
+  addRow("State:",fuckoff);
   addRow("Image Source:",imageSourceBox);
   addRow("URL:",urlEdit);
   addRow("Color:",colorButton);
@@ -355,12 +396,22 @@ MiniatureEditDialog::MiniatureEditDialog(QWidget* parent) : NightModeDialog(pare
   connect(imageSourceBox,qOverload<int>(&QComboBox::currentIndexChanged), this, &MiniatureEditDialog::sourceChanged);
   connect(rotationBox,qOverload<int>(&QComboBox::currentIndexChanged),this,&MiniatureEditDialog::rotationBoxChanged);
   connect(directionBox,qOverload<int>(&QComboBox::currentIndexChanged),this,&MiniatureEditDialog::directionBoxChanged);
+  connect(graphicStateSlider, qOverload<int>(&QSlider::valueChanged), this, &MiniatureEditDialog::graphicsSliderChanged);
+  connect(this->urlEdit->lineEdit(), qOverload<const QString&>(&QLineEdit::textChanged), this, &MiniatureEditDialog::urlLineEditChanged);
+  connect(this->colorButton, qOverload<QColor>(&ColorSelectButton::finalColorChanged), this, &MiniatureEditDialog::colorChanged);
 }
 
 MapMiniatureResource MiniatureEditDialog::getMiniature()
 {
   miniature.setName(nameEdit->text());
-  miniature.setGraphic(getUrl());
+  QVector<QString> urls;
+  for (int i = 0; i<this->urls.size(); ++i) {
+    if (this->urls[i].size()>0) {
+      urls.push_back(this->urls[i]);
+    }
+  }
+  miniature.setSelectedGraphicsIndex(this->graphicStateSlider->value());
+  miniature.setGraphic(urls);
   miniature.setSize(getSize());
   miniature.setLayer(getLayer());
   miniature.setVisibility(getVisibility());
@@ -374,11 +425,23 @@ void MiniatureEditDialog::setMiniature(const MapMiniatureResource &mini)
 {
   miniature = mini;
   setName(mini.getName());
-  setUrl(mini.getGraphic());
+  auto graphics = mini.getGraphic();
+  for(int i=0; i<std::min(this->urls.size(),graphics.size()); ++i) {
+      this->urls[i] = graphics[i];
+  }
+  //setUrl(mini.getGraphic()[0]);
   setSize(mini.getSize());
   setLayer(mini.getLayer());
   setVisibility(mini.getVisibility());
   setDisplay(mini.getDisplay());
   setRotation(mini.getRotation());
   setDirection(mini.getDirection());
+  auto selectedIndex = mini.getSelectedGraphicsIndex();
+  if (selectedIndex > 0 && selectedIndex < 8) {
+    graphicsSliderChanged(mini.getSelectedGraphicsIndex());
+    setUrl(this->urls[mini.getSelectedGraphicsIndex()]);
+  } else {
+      graphicsSliderChanged(0);
+      setUrl(this->urls[0]);
+  }
 }

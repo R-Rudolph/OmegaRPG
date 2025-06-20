@@ -398,6 +398,19 @@ QMenu *MapScene::menuByMiniatureInstance(MiniatureInstance *instance)
   }
   menu->addSeparator();
   menu->addAction(GlobalGUI::freedesktopTextEditor(),"Edit",this,&MapScene::editMiniatureAction);
+  QMenu* stateMenu = menu->addMenu("State");
+  auto graphics = resource.getGraphic();
+  int activeGraphic = resource.getSelectedGraphicsIndex();
+  miniatureStateChangeMap.clear();
+  for (int i = 0; i<graphics.size() ;++i) {
+    QAction* action = nullptr;
+    if ( i == activeGraphic) {
+      action = stateMenu->addAction(GlobalGUI::iconActive(), QString::fromStdString(std::to_string(i+1)),this,&MapScene::updateMiniatureState);
+    } else {
+      action = stateMenu->addAction(QString::fromStdString(std::to_string(i+1)),this,&MapScene::updateMiniatureState);
+    }
+    miniatureStateChangeMap.insert(action, i);
+  }
   QMenu* visibilityMenu = menu->addMenu("Visibility");
   visibilityMenu->addAction("Visible",this,&MapScene::setVisible);
   visibilityMenu->addAction("Partial",this,&MapScene::setVisiblePartial);
@@ -425,7 +438,7 @@ QMenu *MapScene::menuByMiniatureInstance(MiniatureInstance *instance)
   menu->addAction("Export to Minis",this,&MapScene::exportToMinis);
   menu->addSeparator();
   QAction* reloadAction = menu->addAction("Reload Image",this,&MapScene::reloadMiniature);
-  reloadAction->setDisabled(QColor(resource.getGraphic()).isValid());
+  reloadAction->setDisabled(QColor(resource.getSelectedGraphic()).isValid());
   menu->addSeparator();
   QAction* initiativeAction = menu->addAction("Add To Initiative List",this,&MapScene::addMiniatureToInitiative);
   if(orpg::ClientCore::get()->getRole()<ROLE_GM)
@@ -593,7 +606,7 @@ int MapScene::getEraserSize()
 void MapScene::drawMiniaturePreview(qreal x, qreal y)
 {
   clearMiniaturePreview();
-  miniaturePreview = ih.getGraphicsItem(miniature.getGraphic(),miniature.getSize()*gridSize,miniature.getDisplay());
+  miniaturePreview = ih.getGraphicsItem(miniature.getSelectedGraphic(),miniature.getSize()*gridSize,miniature.getDisplay());
   miniaturePreview->setPos(x,y);
   addItem(miniaturePreview);
 }
@@ -692,6 +705,19 @@ void MapScene::clearMapText()
   }
   mapTextMap.clear();
 }
+#include<iostream>
+void MapScene::updateMiniatureState() {
+  if(!initMiniatureEditMiniature(sender()->parent()))
+    return;
+  if (miniatureStateChangeMap.contains(sender())) {
+    int selected = miniatureStateChangeMap[sender()];
+      miniatureEditMiniature.setSelectedGraphicsIndex(selected);
+      editMiniature(miniatureEditMiniature);
+      std::cerr << "updated to state " << selected << std::endl;
+  } else {
+      std::cerr << "fuck!" << std::endl;
+  }
+}
 
 void MapScene::clearMeasurement()
 {
@@ -747,9 +773,10 @@ void MapScene::newMiniature(const MapMiniatureResource &miniature)
 {
   sendMessage(orpg::RoomResourceMessage::newResourceMessage(miniature));
 }
-
+#include<QDebug>
 void MapScene::editMiniature(const MapMiniatureResource &miniature)
 {
+    qDebug() << orpg::RoomResourceMessage::setResourceMessage(miniature).toJson();
   sendMessage(orpg::RoomResourceMessage::setResourceMessage(miniature));
 }
 
@@ -1067,7 +1094,7 @@ void MapScene::addMiniatureToInitiative()
 {
   if(!initMiniatureEditMiniature(sender()))
     return;
-  InitiativeResource res(miniatureEditMiniature.getName(),QString(),miniatureEditMiniature.getGraphic(),false,0,0);
+  InitiativeResource res(miniatureEditMiniature.getName(),QString(),miniatureEditMiniature.getSelectedGraphic(),false,0,0);
   orpg::ClientCore::get()->newInitiativeResource(res);
 }
 
@@ -1109,7 +1136,7 @@ void MapScene::reloadMiniature()
   msgBox.setDefaultButton(QMessageBox::Yes);
   if(msgBox.exec()==QMessageBox::Yes)
   {
-    ih.reload(miniatureEditMiniature.getGraphic());
+    ih.reload(miniatureEditMiniature.getSelectedGraphic());
   }
 }
 

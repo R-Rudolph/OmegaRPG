@@ -207,7 +207,7 @@ MiniatureInstance::MiniatureInstance(const MapMiniatureResource &miniature, QGra
   this->miniature = miniature;
   if(!miniature.getGraphic().isEmpty())
   {
-    item = ih->getGraphicsItem(miniature.getGraphic(),miniature.getSize()*gridSize,miniature.getDisplay());
+    item = ih->getGraphicsItem(miniature.getSelectedGraphic(),miniature.getSize()*gridSize,miniature.getDisplay());
     item->setRotation(miniature.getRotation());
     item->setPos(miniature.getPos()*gridSize);
 

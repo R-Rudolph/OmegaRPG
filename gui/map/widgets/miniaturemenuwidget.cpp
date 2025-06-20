@@ -162,8 +162,13 @@ QTreeWidgetItem *MiniatureMenuWidget::getMiniatureItem(MapMiniatureResource mini
         miniature.setLayer((MapMiniatureResource::Layer)fallback->value("llayer").toInt());
       if(fallback->contains("size"))
         miniature.setSize(fallback->value("size").toDouble());
-      if(fallback->contains("url"))
-        miniature.setGraphic(fallback->value("url").toString());
+      if(fallback->contains("url")) {
+          QVector<QString> urlVector;
+          for(QJsonValue entry : fallback->value("url").toArray()) {
+              urlVector.push_back(entry.toString());
+          }
+          miniature.setGraphic(urlVector);
+      }
       if(fallback->contains("vis"))
         miniature.setVisibility((MapMiniatureResource::Visibility)fallback->value("vis").toInt());
     }
@@ -351,9 +356,14 @@ void MiniatureMenuWidget::addToInitiativeList()
   if(contextMenuItem==nullptr)
     return;
   MapMiniatureResource mini = getResource(contextMenuItem);
+  QString graphic = "";
+  auto graphics = mini.getGraphic();
+  if (graphics.size()>0) {
+      graphic = graphics[0];
+  }
   InitiativeResource res(mini.getName(),
                          QString(),
-                         mini.getGraphic(),
+                         graphic,
                          false,
                          0);
   orpg::ClientCore::get()->newInitiativeResource(res);
