@@ -1,0 +1,13 @@
+{
+    "CertificateFilepath": "/keys/fullchain.pem",
+    "KeyFilepath": "/keys/privkey.pem",
+    "MetaServer": "",
+    "MetaServerHeartbeat": 3600000,
+    "NofityMetaServer": true,
+    "Port": 7001,
+    "ServerName": "",
+    "ServerUrl": "",
+    "adminPassword": "",
+    "serverMessage": "",
+    "type": "OmegaRPG Server Settings File"
+}

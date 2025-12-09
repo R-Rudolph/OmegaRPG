@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+    frontend:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+
+        image: omegarpg-server
+        container_name: omegarpg-server
+
+        volumes:
+            # edit settings/settings/orpg_serversettings.json before usage
+            - type: bind
+              source: "./settings"
+              target: "/root/.OmegaRPG/settings"
+            # mount keys into container
+            - type: bind
+              source: "/etc/letsencrypt/live/<domain>"
+              target: "/keys/"
+
+        ports:
+            - "7001:7001"
+        command: OmegaRPG-Server-CLI
+        tty: true
