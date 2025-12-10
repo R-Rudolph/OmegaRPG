@@ -13,10 +13,10 @@ services:
             - type: bind
               source: "./settings"
               target: "/root/.OmegaRPG/settings"
-            # mount keys into container
+            # mount keys into container. Let's Encrypt uses symlinks for the live keys, so the entire directory is mounted
             - type: bind
-              source: "/etc/letsencrypt/live/<domain>"
-              target: "/keys/"
+              source: "/etc/letsencrypt/"
+              target: "/etc/letsencrypt/"
 
         ports:
             - "7001:7001"
